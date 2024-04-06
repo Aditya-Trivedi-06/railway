@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            http-equiv="X-UA-Compatible"
+            content="IE=edge" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+            crossorigin="anonymous" />
+        <title>JobWork</title>
+    </head>
+    <body style="margin: 25px;">
+        <h2>Create a new Job Work</h2>
+        <div style="margin: 25px">
+            <form
+                action="{{url_for('editJobCard')}}"
+                method="POST">
+
+                <div style="
+                            border-bottom: 1px solid rgb(165, 165, 165);
+                            margin-bottom: 30px;
+                            padding: 10px;
+                        ">
+                    <h4>Job Card</h4>
+                    <div class="form-row">
+                        <div class="form-group col-md-2">
+                            <label for="JobId">Job Id</label
+                            ><input
+                                class="form-control"
+                                type="text"
+                                value="{{job['JobId']}}"
+                                name="JobId"
+                                readonly
+                                required />
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="clientName">Client Name</label>
+                            <div
+                                style="
+                                    display: flex;
+                                    justify-content: center;
+                                    height: 35px;
+                                    align-items: center;
+                                ">
+                                <select
+                                    name="clientName"
+                                    id="clientName"
+                                    style="width: 100%; ">
+                                    <option></option>
+                                    {% for client in clients %}
+                                    <option value="{{client['name']}}" {% if client['name'] == job['clientName'] %} selected {% endif %}>
+                                        {{client['name']}}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="date">Date</label
+                            ><input
+                                class="form-control"
+                                value="{{job['date']}}"
+                                type="date"
+                                name="date"
+                                id="date"
+                                required />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="jobName">Job Name</label>
+                            <div
+                                style="
+                                    display: flex;
+                                    justify-content: center;
+                                    height: 35px;
+                                    align-items: center;
+                                ">
+                                <select
+                                    name="jobName"
+                                    id="jobName"
+                                    style="width: 100%; ">
+                                    <option></option>
+                                    {% for jobs in jobNames %}
+                                    <option value="{{jobs['name']}}" {% if jobs['name'] == job['jobName'] %} selected {% endif %}>
+                                        {{jobs['name']}}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="qty">Quanity</label
+                            ><input
+                                class="form-control"
+                                value="{{job['qty']}}"
+                                type="number"
+                                name="qty"
+                                id="qty"
+                                required />
+                        </div>
+                    </div>
+                    <div
+                        class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="description">Job Description</label
+                            ><input
+                                class="form-control"
+                                value="{{job['description']}}"
+                                type="text"
+                                id="description"
+                                name="description" />
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="
+                            border-bottom: 1px solid rgb(165, 165, 165);
+                            margin-bottom: 30px;
+                            padding: 10px;
+                        ">
+                    <h4>Paper</h4>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="paperSupplierName">Supplier Name</label>
+                            <div
+                                style="
+                                    display: flex;
+                                    justify-content: center;
+                                    height: 35px;
+                                    align-items: center;
+                                ">
+                                <select
+                                    name="paperSupplierName"
+                                    id="paperSupplierName"
+                                    style="width: 100%; ">
+                                    <option></option>
+                                    {% for supplier in paperSuppliers %}
+                                    <option value="{{supplier['name']}}" {% if supplier['name'] == job['paperSupplierName'] %} selected {% endif %}>
+                                        {{supplier['name']}}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="paperType">Type</label>
+                            <div
+                                style="
+                                    display: flex;
+                                    justify-content: center;
+                                    height: 35px;
+                                    align-items: center;
+                                ">
+                                <select
+                                    name="paperType"
+                                    id="paperType"
+                                    style="width: 100%; ">
+                                    <option>-</option>
+                                    {% for type in paperTypes %}
+                                    <option value="{{type['name']}}" {% if type['name'] == job['paperType'] %} selected {% endif %}>
+                                        {{type['name']}}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-2">
+                            <label for="gsm">GSM</label
+                            ><input
+                                class="form-control"
+                                value="{{job['gsm']}}"
+                                type="text"
+                                name="gsm" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="paperSize">Size</label
+                            ><input
+                                class="form-control"
+                                value="{{job['paperSize']}}"
+                                type="text"
+                                id="paperSize"
+                                name="paperSize" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="paperQty">Qty</label>
+                            <input
+                                class="form-control"
+                                value="{{job['paperQty']}}"
+                                type="number"
+                                id="paperQty"
+                                name="paperQty" />
+                            <label for="weight">KG</label>
+                            <input
+                                type="checkbox"
+                                value="kg"
+                                name="weight" />
+                            <label for="value">Sheet</label>
+                            <input
+                                type="checkbox"
+                                value="value"
+                                name="value" />
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="
+                            border-bottom: 1px solid rgb(165, 165, 165);
+                            margin-bottom: 30px;
+                            padding: 10px;
+                        ">
+                    <h4>Printing</h4>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="supplierName">Supplier Name</label>
+                            <div
+                                style="
+                                    display: flex;
+                                    justify-content: center;
+                                    height: 35px;
+                                    align-items: center;
+                                ">
+                                <select
+                                    name="printingSupplierName"
+                                    id="printingSupplierName"
+                                    style="width: 100%; ">
+                                    <option>-</option>
+                                    {% for supplier in printingSuppliers %}
+                                    <option value="{{supplier['name']}}" {% if supplier['name'] == job['printingSupplierName'] %} selected {% endif %}>
+                                        {{supplier['name']}}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-2">
+                            <label for="color">Color</label
+                            ><input
+                                class="form-control"
+                                value="{{job['color']}}"
+                                type="text"
+                                id="color"
+                                name="color" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="printSize">Size</label
+                            ><input
+                                class="form-control"
+                                value="{{job['printSize']}}"
+                                type="text"
+                                id="printSize"
+                                name="printSize" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="printQty">Qty</label>
+                            <input
+                                class="form-control"
+                                value="{{job['printQty']}}"
+                                type="number"
+                                id="printQty"
+                                name="printQty" />
+                        </div>
+                    </div>
+                    <div
+                        class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="printingDescription">Printing Description</label
+                            ><input
+                                class="form-control"
+                                type="text"
+                                value="{{job['printingDescription']}}"
+                                id="printingDescription"
+                                name="printingDescription" />
+                        </div>
+                    </div>
+                </div>
+
+                <div style="
+                            border-bottom: 1px solid rgb(165, 165, 165);
+                            margin-bottom: 30px;
+                            padding: 10px;
+                        ">
+                    <h4>Corrugation</h4>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="corrugationSupplierName">Supplier Name</label>
+                            <div
+                                style="
+                                    display: flex;
+                                    justify-content: center;
+                                    height: 35px;
+                                    align-items: center;
+                                ">
+                                <select
+                                    name="corrugationSupplierName"
+                                    id="corrugationSupplierName"
+                                    style="width: 100%; ">
+                                    <option></option>
+                                    {% for supplier in corrugationSuppliers %}
+                                    <option value="{{supplier['name']}}" {% if supplier['name'] == job['corrugationSupplierName'] %} selected {% endif %}>
+                                        {{supplier['name']}}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-2">
+                            <label for="ply">PLY</label
+                            ><input
+                                class="form-control"
+                                value="{{job['ply']}}"
+                                type="text"
+                                id="ply"
+                                name="ply" />
+                        </div>
+                        
+                        <div class="form-group col-md-6">
+                            <label for="plyDescription">Description</label
+                            ><input
+                                class="form-control"
+                                value="{{job['plyDescription']}}"
+                                type="text"
+                                id="plyDescription"
+                                name="plyDescription" />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-2">
+                            <label for="plySize">Size</label
+                            ><input
+                                class="form-control"
+                                value="{{job['plySize']}}"
+                                type="text"
+                                id="plySize"
+                                name="plySize" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="plyQty">Qty</label>
+                            <input
+                                class="form-control"
+                                value="{{job['plyQty']}}"
+                                type="number"
+                                id="plyQty"
+                                name="plyQty" />
+                        </div>
+                    </div>
+                </div>
+                <div style="
+                            border-bottom: 1px solid rgb(165, 165, 165);
+                            margin-bottom: 30px;
+                            padding: 10px;
+                        ">
+                    <h4>Other Details</h4>
+                    <div class="form-row">
+                        <div style="display: flex; width: 100%;">
+                            <div style="width: 40%;">
+                                <label for="plateSupplierName">Plate Supplier Name</label>
+                                <div
+                                    style="
+                                        display: flex;
+                                        justify-content: center;
+                                        height: 35px;
+                                        align-items: center;
+                                    ">
+                                    <select
+                                        name="plateSupplierName"
+                                        id="plateSupplierName"
+                                        style="width: 100%; ">
+                                        <option></option>
+                                        {% for supplier in plateSuppliers %}
+                                        <option value="{{supplier['name']}}" {% if supplier['name'] == job['plateSupplierName'] %} selected {% endif %}>
+                                            {{supplier['name']}}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                            </div>
+                            </div>
+                            <div class="form-group col-md-2">
+                            <label for="plateQty">Qty</label
+                            ><input
+                                class="form-control"
+                                value="{{job['plateQty']}}"
+                                type="number"
+                                id="plateQty"
+                                name="plateQty" />
+                        </div>
+                        </div>
+                        <div style="display: flex; width: 100%;">
+                            <div style="width: 40%;">
+                                <label for="punchSupplierName">Punch Supplier Name</label>
+                                <div
+                                    style="
+                                        display: flex;
+                                        justify-content: center;
+                                        height: 35px;
+                                        align-items: center;
+                                    ">
+                                    <select
+                                        name="punchSupplierName"
+                                        id="punchSupplierName"
+                                        style="width: 100%; ">
+                                        <option>-</option>
+                                        {% for supplier in punchSuppliers %}
+                                        <option value="{{supplier['name']}}" {% if supplier['name'] == job['punchSuppliers'] %} selected {% endif %}>
+                                            {{supplier['name']}}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                            </div>
+                            </div>
+                            <div class="form-group col-md-2">
+                            <label for="punchQty">Qty</label
+                            ><input
+                                class="form-control"
+                                type="number"
+                                value="{{job['punchQty']}}"
+                                id="punchQty"
+                                name="punchQty" />
+                        </div>
+                        </div>
+                        <div style="display: flex; width: 100%;">
+                            <div style="width: 40%;">
+                                <label for="varnishSupplierName">Varnish Supplier Name</label>
+                                <div
+                                    style="
+                                        display: flex;
+                                        justify-content: center;
+                                        height: 35px;
+                                        align-items: center;
+                                    ">
+                                    <select
+                                        name="varnishSupplierName"
+                                        id="varnishSupplierName"
+                                        style="width: 100%; ">
+                                        <option>-</option>
+                                        {% for supplier in varnishSuppliers %}
+                                        <option value="{{supplier['name']}}" {% if supplier['name'] == job['varnishSuppliers'] %} selected {% endif %}>
+                                            {{supplier['name']}}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                            </div>
+                            </div>
+                            <div class="form-group col-md-2">
+                            <label for="varnishQty">Qty</label
+                            ><input
+                                class="form-control"
+                                type="number"
+                                value="{{job['varnishQty']}}"
+                                id="varnishQty"
+                                name="varnishQty" />
+                        </div>
+                        </div>
+                        <div style="display: flex; width: 100%;">
+                            <div style="width: 40%;">
+                                <label for="laminationSupplierName">Lamination Supplier Name</label>
+                                <div
+                                    style="
+                                        display: flex;
+                                        justify-content: center;
+                                        height: 35px;
+                                        align-items: center;
+                                    ">
+                                    <select
+                                        name="laminationSupplierName"
+                                        id="laminationSupplierName"
+                                        style="width: 100%; ">
+                                        <option>-</option>
+                                        {% for supplier in laminationSuppliers %}
+                                        <option value="{{supplier['name']}}" {% if supplier['name'] == job['laminationSuppliers'] %} selected {% endif %}>
+                                            {{supplier['name']}}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                            </div>
+                            </div>
+                            <div class="form-group col-md-2">
+                            <label for="laminationQty">Qty</label
+                            ><input
+                                class="form-control"
+                                value="{{job['laminationQty']}}"
+                                type="number"
+                                id="laminationQty"
+                                name="laminationQty" />
+                        </div>
+                        </div>
+                        <div style="display: flex; width: 100%;">
+                            <div style="width: 40%;">
+                                <label for="punchingSupplierName">Punching Supplier Name</label>
+                                <div
+                                    style="
+                                        display: flex;
+                                        justify-content: center;
+                                        height: 35px;
+                                        align-items: center;
+                                    ">
+                                    <select
+                                        name="punchingSupplierName"
+                                        id="punchingSupplierName"
+                                        style="width: 100%; ">
+                                        <option>-</option>
+                                        {% for supplier in punchingSuppliers %}
+                                        <option value="{{supplier['name']}}" {% if supplier['name'] == job['punchingSuppliers'] %} selected {% endif %}>
+                                            {{supplier['name']}}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                            </div>
+                            </div>
+                            <div class="form-group col-md-2">
+                            <label for="punchingQty">Qty</label
+                            ><input
+                                class="form-control"
+                                value="{{job['punchingQty']}}"
+                                type="number"
+                                id="punchingQty"
+                                name="punchingQty" />
+                        </div>
+                        </div>
+                        <div style="display: flex; width: 100%;">
+                            <div style="width: 40%;">
+                                <label for="pastingSupplierName">Pasting Supplier Name</label>
+                                <div
+                                    style="
+                                        display: flex;
+                                        justify-content: center;
+                                        height: 35px;
+                                        align-items: center;
+                                    ">
+                                    <select
+                                        name="pastingSupplierName"
+                                        id="pastingSupplierName"
+                                        style="width: 100%; ">
+                                        <option>-</option>
+                                        {% for supplier in pastingSuppliers %}
+                                        <option value="{{supplier['name']}}" {% if supplier['name'] == job['pastingSuppliers'] %} selected {% endif %}>
+                                            {{supplier['name']}}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                            </div>
+                            </div>
+                            <div class="form-group col-md-2">
+                            <label for="pastingQty">Qty</label
+                            ><input
+                                class="form-control"
+                                value="{{job['pastingQty']}}"
+                                type="number"
+                                id="pastingQty"
+                                name="pastingQty" />
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <button
+                    type="submit"
+                    class="btn btn-primary">
+                    Save
+                </button>
+            </form>
+        </div>
+        <script
+            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    </body>
+</html>

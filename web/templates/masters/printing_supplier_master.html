@@ -1,0 +1,6 @@
+{% extends 'layout.html' %}
+{% block content %}
+    {% from 'macros.html' import table, master %}
+    {{ master('printingSupplierName', 'Printing Supplier', printingSuppliers, '/addprintingSupplierName') }}
+    {{ table('printingSupplierName', 'Printing Supplier', printingSuppliers) }}
+{% endblock %}

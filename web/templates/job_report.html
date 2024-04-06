@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+{% block title %} Report {% endblock title %}
+{% from 'macros.html' import reportFilter, jobReportTable %}
+
+{% block content %}
+
+<section style="padding: 30px;">
+        <div>
+            <p>Results for: <b>{{jobName}}</b></p>
+        </div>
+    {{ jobReportTable(jobWorks) }}
+</section>
+
+{% endblock content %}

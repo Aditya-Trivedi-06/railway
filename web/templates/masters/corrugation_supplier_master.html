@@ -1,0 +1,6 @@
+{% extends 'layout.html' %}
+{% block content %}
+    {% from 'macros.html' import table, master %}
+    {{ master('corrugationSupplierName', 'Corrugation Supplier', corrugationSuppliers, '/addcorrugationSupplierName') }}
+    {{ table('corrugationSupplierName', 'Corrugation Supplier', corrugationSuppliers) }}
+{% endblock %}

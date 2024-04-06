@@ -1,0 +1,106 @@
+{% extends 'layout.html' %}
+{% block title %} Edit Fields {%  endblock title %}
+
+{% block stylesheets %}
+<style>
+    .popup {
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+        display: none;
+    }
+
+    .popup-content {
+        background-color: white;
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #888888;
+        width: 30%;
+        font-weight: bolder;
+        border-radius: 10px;
+    }
+
+    .popup-content button {
+        display: block;
+        margin: 0 auto;
+    }
+
+    .show {
+        display: block;
+    }
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+{% from 'macros.html' import editFields %}
+<section>
+     <div style="padding: 25px">
+            <div style=" width: 100%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;">
+                <div style="display: flex;
+                        justify-content: center;
+                        margin-left: 50px;">
+                    <h1>Edit Fields</h1>
+                </div>
+            </div>
+            <div id="myPopup" class="popup">
+                <div class="popup-content">
+                    <div style="padding-bottom: 5px;">
+                        <h5>
+                            Change Field
+                        </h5>
+                        <input type="text">
+                    </div>
+                    <div style="display: flex; justify-content: space-around;">
+                        <div>
+                            <a href="#" class="btn btn-danger" role="button">
+                                Confirm
+                            </a>
+                        </div>
+                        <div>
+                            <button id="closePopup" class="btn btn-primary">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+{% endblock content %}
+
+{% block javascripts %}
+<script>
+    document.onkeydown = function (evt) {
+        evt = evt || window.event;
+        var isEscape = false;
+        if ("key" in evt) {
+            isEscape = (evt.key === "Escape" || evt.key === "Esc");
+        } else {
+            isEscape = (evt.keyCode === 27);
+        }
+        if (isEscape) {
+            myPopup.classList.remove("show");
+        }
+    };
+    document.getElementById('myButton').addEventListener("click", function () {
+        history.replaceState(null, "", '/deletefield?')
+        myPopup.classList.add("show");
+    });
+    closePopup.addEventListener("click", function () {
+        myPopup.classList.remove("show");
+    });
+    window.addEventListener("click", function (event) {
+        if (event.target == myPopup) {
+            myPopup.classList.remove("show");
+        }
+    });
+</script>
+{% endblock javascripts %}

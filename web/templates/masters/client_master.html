@@ -1,0 +1,6 @@
+{% extends 'layout.html' %}
+{% block content %}
+    {% from 'macros.html' import master, table %}
+    {{ master('clientName', 'Client', clients, '/addclientName') }}
+    {{ table('clientName', 'Client', clients) }}
+{% endblock %}

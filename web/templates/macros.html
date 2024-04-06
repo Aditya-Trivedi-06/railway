@@ -1,0 +1,190 @@
+{% macro table(id, name, data) -%}
+<div style="margin: 20px">
+    <h4>{{name}}</h4>
+    <div style="display: flex">
+        <div style="width: 100%; padding: 10px; margin-right: 20px">
+            <table class="table-striped table-bordered table-hover table-responsive" style="overflow-x: scroll;">
+                <tbody>
+                    <tr>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>State</th>
+                        <th>City</th>
+                        <th>Pincode</th>
+                        <th>Mobile</th>
+                        <th>Email</th>
+                        <th>Gst</th>
+                    </tr>
+                    {% for row in data %}
+                    <tr class ='tableColumn'>
+                        <div style="display: flex;" id="temp">
+                            <td class="table-data table-name">{{row['name']}}</td>
+                            <td class="table-data">{{row['address']}}</td>
+                            <td class="table-data">{{row['state']}}</td>
+                            <td class="table-data">{{row['city']}}</td>
+                            <td class="table-data">{{row['pincode']}}</td>
+                            <td class="table-data">{{row['mobile']}}</td>
+                            <td class="table-data">{{row['email']}}</td>
+                            <td class="table-data">{{row['gst']}}</td>
+                        </div>
+                        <td style="position: sticky; right:70px; z-index: 2;">
+                            <a href="/editfield?field={{id}}&row={{row['name']}}" class="btnRow btn-secondary" style="width: 60px" id="myButton">
+                                Edit
+                            </a>
+                        </td>
+                        <td style="position: sticky; right: 0px; z-index: 2;">
+                            <a href="/deletefield?field={{id}}&row={{row['name']}}" class="btnRow btn-danger" style="width: 60px">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endmacro -%}
+
+{% macro jobTable(id, name, data) -%}
+<div style="margin: 20px">
+    <h4>{{name}}</h4>
+    <div style="display: flex">
+        <div style="width: 100%; padding: 10px; margin-right: 20px">
+            <table class="table-striped table-bordered table-hover table-responsive" style="overflow-x: scroll;">
+                <tbody>
+                    <tr>
+                        <th>Name</th>
+                    </tr>
+                    {% for row in data %}
+                    <tr class='tableColumn'>
+                        <div style="display: flex;" id="temp">
+                            <td class="table-data table-name"><a href="/onlyJob?job={{row['name']}}">{{row['name']}}</a></td>
+                        </div>
+                        <td style="position: sticky; right:70px; z-index: 2;">
+                            <a href="/editfield?field={{id}}&row={{row['name']}}" class="btnRow btn-secondary"
+                                style="width: 60px" id="myButton">
+                                Edit
+                            </a>
+                        </td>
+                        <td style="position: sticky; right: 0px; z-index: 2;">
+                            <a href="/deletefield?field={{id}}&row={{row['name']}}" class="btnRow btn-danger"
+                                style="width: 60px">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endmacro -%}
+
+{% macro jobCardDropdown(id, name, data) %}
+<div class="form-group col-md-4">
+    <label for="{{id}}">{{name}}</label>
+    <div
+        style="
+            display: flex;
+            justify-content: center;
+            height: 35px;
+            align-items: center;
+        ">
+        <select
+            name="{{id}}"
+            id="{{id}}"
+            style="width: 100%; ">
+            <option></option>
+            {% for row in data %}
+            <option value="{{row['name']}}">
+                {{row['name']}}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+{% endmacro %}
+
+{% macro jobCardField(id, name, type, len, req=0) %}
+<div class="form-group col-md-{{len}}">
+    <label for="{{id}}">{{name}}</label
+    ><input
+        class="form-control"
+        type="{{type}}"
+        name="{{id}}"
+        id="{{id}}"
+        {% if req %} required {% endif %}/>
+</div>
+{% endmacro %}
+
+{% macro reportFilter(id, name, data) %}
+<td>
+    <div class="filterBlocks">
+        {{name}}
+        <select
+            name="{{id}}"
+            id="{{id}}"
+            style="width: 100%">
+            <option value="null"></option>
+            {% for row in data %}
+            <option value="{{row['name']}}">
+                {{row['name']}}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+</td>
+{% endmacro %}
+
+{% macro master(id, name, data, url) -%}
+<div style="margin-bottom: 20px">
+    <div style="display: flex">
+        <button class="btn btn-secondary open-button" onclick="openForm('{{id}}')">Create</button>
+        {% from 'forms.html' import form %}
+        {{form(name, url, id)}}
+    </div>
+</div>
+{% endmacro -%}
+
+{% macro jobReportTable(jobWorks) -%}
+{% set count = namespace(value=1) %}
+<table class="table table-striped" style="margin-top: 20px; border-radius: 25px">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Date</th>
+            <th scope="col">Job Name</th>
+            <th scope="col">Qty</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for job in jobWorks %}
+
+        <tr>
+            <th scope="row"><a href="/job?jobid={{job['JobId']}}" style="text-decoration: none; color: black">{{
+                    count.value }}
+                </a></th>
+            <td>
+                <a href="/job?jobid={{job['JobId']}}" style="text-decoration: none; color: black">
+                    <div style="height: 100%; width: 100%">
+                        {{ job['date'] }}
+                    </div>
+                </a>
+            </td>
+            <td>
+                <a href="/job?jobid={{job['JobId']}}" style="text-decoration: none; color: black">
+                    <div style="height: 100%; width: 100%">
+                        {{ job['jobName'] }}
+                    </div>
+                </a>
+            </td>
+            <td>
+                <a href="/job?jobid={{job['JobId']}}" style="text-decoration: none; color: black">
+                    <div style="height: 100%; width: 100%">
+                        {{ job['qty'] }}
+                    </div>
+                </a>
+            </td>
+        </tr>
+        {% set count.value = count.value + 1 %} {% endfor %}
+    </tbody>
+</table>
+{% endmacro -%}

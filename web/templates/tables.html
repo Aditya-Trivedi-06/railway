@@ -1,0 +1,89 @@
+{% macro clientTable(id, name, data) -%}
+<div style="margin: 20px">
+    <h4>{{name}}</h4>
+    <div style="display: flex">
+        <div style="width: 100%; padding: 10px; margin-right: 20px">
+            <table class="table-striped table-bordered table-hover table-responsive" style="overflow-x: scroll;">
+                <tbody>
+                    <tr>
+                        <th>Name</th>
+                        <th>Mailing Name</th>
+                        <th>Address</th>
+                        <th>Country</th>
+                        <th>State</th>
+                        <th>City</th>
+                        <th>Pincode</th>
+                        <th>Mobile</th>
+                        <th>Email</th>
+                        <th>Gst</th>
+                    </tr>
+                    {% for row in data %}
+                    <tr class='tableColumn'>
+                        <div style="display: flex;" id="temp">
+                            <td class="table-data table-name">{{row['name']}}</td>
+                            <td class="table-data">{{row['mailingName']}}</td>
+                            <td class="table-data">{{row['address']}}</td>
+                            <td class="table-data">{{row['country']}}</td>
+                            <td class="table-data">{{row['state']}}</td>
+                            <td class="table-data">{{row['city']}}</td>
+                            <td class="table-data">{{row['pincode']}}</td>
+                            <td class="table-data">{{row['mobile']}}</td>
+                            <td class="table-data">{{row['email']}}</td>
+                            <td class="table-data">{{row['gst']}}</td>
+                        </div>
+                        <td style="position: sticky; right:70px; z-index: 2;">
+                            <a href="/editfield?field={{id}}&row={{row['name']}}" class="btnRow btn-secondary"
+                                style="width: 60px" id="myButton">
+                                Edit
+                            </a>
+                        </td>
+                        <td style="position: sticky; right: 0px; z-index: 2;">
+                            <a href="/deletefield?field={{id}}&row={{row['name']}}" class="btnRow btn-danger"
+                                style="width: 60px">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endmacro -%}
+
+{% macro paperTypeTable(id, name, data) -%}
+<div style="margin: 20px">
+    <h4>{{name}}</h4>
+    <div style="display: flex">
+        <div style="width: 100%; padding: 10px; margin-right: 20px">
+            <table class="table-striped table-bordered table-hover table-responsive" style="overflow-x: scroll;">
+                <tbody>
+                    <tr>
+                        <th>Name</th>
+                        <th>Mailing Name</th>
+                        <th>Address</th>
+                    </tr>
+                    {% for row in data %}
+                    <tr class='tableColumn'>
+                        <div style="display: flex;" id="temp">
+                            <td class="table-data table-name">{{row['name']}}</td>
+                            <td class="table-data">{{row['mailingName']}}</td>
+                            <td class="table-data">{{row['address']}}</td>
+                        </div>
+                        <td style="position: sticky; right:70px; z-index: 2;">
+                            <a href="/editfield?field={{id}}&row={{row['name']}}" class="btnRow btn-secondary"
+                                style="width: 60px" id="myButton">
+                                Edit
+                            </a>
+                        </td>
+                        <td style="position: sticky; right: 0px; z-index: 2;">
+                            <a href="/deletefield?field={{id}}&row={{row['name']}}" class="btnRow btn-danger"
+                                style="width: 60px">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endmacro -%}

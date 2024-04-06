@@ -1,0 +1,6 @@
+{% extends 'layout.html' %}
+{% block content %}
+    {% from 'macros.html' import table, master %}
+    {{ master('paperTypeName', 'Paper type', paperTypes) }}
+    {{ table('paperTypeName', 'Paper type', paperTypes) }}
+{% endblock %}

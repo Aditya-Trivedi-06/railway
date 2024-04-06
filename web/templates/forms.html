@@ -1,0 +1,218 @@
+{% macro form(name, url, id) -%}
+<div id="{{id}}" class="form-popup" style="z-index: 9;">
+    <div class="container">
+        <div class="row py-5 mt-4 align-items-center">
+                <div class="col-lg mb-2" style="display: flex; justify-content: center;">
+                        <h1>Add a {{name}}</h1>
+                </div>
+
+            <div class="ml-auto">
+                <form method="post" action="{{url}}">
+                    <div class="row">
+                        <!-- Name -->
+                        <div class="input-group col-lg-6 mb-4">
+                            <input id="{{id}}" type="text" name="{{id}}" placeholder="{{name}} Name"
+                                class="form-control border" required>
+                        </div>
+
+                        <div class="input-group col-lg-6 mb-4">
+                            <input id="mailingName" type="text" name="mailingName" placeholder="Mailing Name"
+                                class="form-control bg-white border border-md">
+                        </div>
+
+                        <div class="input-group col-lg-6 mb-4">
+                            <input id="email" type="email" name="email" placeholder="Email"
+                                class="form-control bg-white border border-md">
+                        </div>
+
+                        <div class="input-group col-lg-6 mb-4">
+                            <input id="country" type="text" name="country" placeholder="Country" 
+                                class="form-control bg-white border border-md">
+                        </div>
+
+                        <div class="input-group col-lg-6 mb-4">
+                            <input id="state" type="text" name="state" placeholder="State"
+                                class="form-control bg-white border border-md">
+                        </div>
+
+                        <div class="input-group col-lg-6 mb-4">
+                            <input id="city" type="text" name="city" placeholder="City"
+                                class="form-control bg-white border border-md">
+                        </div>
+
+                        <div class="input-group col-lg-6 mb-4">
+                            <input id="pincode" type="number" name="pincode" placeholder="Pincode"
+                                class="form-control bg-white border border-md">
+                        </div>
+
+                        <!-- Phone Number -->
+                        <div class="input-group col-lg-6 mb-4">
+                        
+                            <select id="countryCode" name="countryCode" style="max-width: 80px"
+                                class="custom-select form-control bg-white border border-md h-100 font-weight-bold text-muted">
+                                <option value="+91" selected>+91</option>
+                            </select>
+                            <input id="mobile" type="tel" name="mobile" placeholder="Phone Number"
+                                class="form-control bg-white border-md border-left-0 pl-3">
+                        </div>
+
+                        <!-- Email Address -->
+                        <div class="input-group col-lg-12 mb-4">
+                            <input id="address" type="text" name="address" placeholder="Address"
+                                class="form-control bg-white border border-md">
+                        </div>
+
+                        <div class="input-group col-lg-6 mb-4">
+                            <input id="gst" type="text" name="gst" placeholder="GST No."
+                                class="form-control bg-white border border-md">
+                        </div>
+
+                        <div class="input-group col-lg-6 mb-4">
+                            <input id="website" type="text" name="website"
+                                placeholder="Website" class="form-control bg-white border border-md">
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div style="position: absolute; right: 0; bottom: 0; margin-right: 30px;">
+                            <button class="btn btn-primary py-2 font-weight-bold">
+                                Add
+                            </button>
+                            <button type="button" class="btn cancel btn-primary py-2" onclick="closeForm('{{id}}')">Close</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endmacro -%}
+
+{% macro editForm(field, data) -%}
+<div style="z-index: 9;">
+    <div class="container">
+        <div class="row py-5 mt-4 align-items-center">
+            <div class="col-lg mb-2" style="display: flex; justify-content: center;">
+                <h1>Edit: {{data['name']}}</h1>
+            </div>
+
+            <div class="ml-auto">
+                <form method="post" action="/editfield?field={{field}}&row={{data['name']}}">
+                    <div class="row">
+                        <!-- Name -->
+                        <div class="input-group col-lg-6 mb-4">
+                            <input id="name" type="text" name="name" placeholder="{{name}} Name"
+                                class="form-control border" value="{{data['name']}}" required>
+                        </div>
+
+                        <div class="input-group col-lg-6 mb-4">
+                            <input id="mailingName" type="text" name="mailingName" placeholder="Mailing Name"
+                                class="form-control bg-white border border-md" value="{{data['mailingName']}}">
+                        </div>
+
+                        <div class="input-group col-lg-6 mb-4">
+                            <input id="email" type="email" name="email" placeholder="Email"
+                                class="form-control bg-white border border-md" value="{{data['email']}}">
+                        </div>
+
+                        <div class="input-group col-lg-6 mb-4">
+                            <input id="country" type="text" name="country" placeholder="Country"
+                                class="form-control bg-white border border-md" value="{{data['country']}}">
+                        </div>
+
+                        <div class="input-group col-lg-6 mb-4">
+                            <input id="state" type="text" name="state" placeholder="State"
+                                class="form-control bg-white border border-md" value="{{data['state']}}">
+                        </div>
+
+                        <div class="input-group col-lg-6 mb-4">
+                            <input id="city" type="text" name="city" placeholder="City"
+                                class="form-control bg-white border border-md" value="{{data['city']}}">
+                        </div>
+
+                        <div class="input-group col-lg-6 mb-4">
+                            <input id="pincode" type="number" name="pincode" placeholder="Pincode"
+                                class="form-control bg-white border border-md" value="{{data['pincode']}}">
+                        </div>
+
+                        <div class="input-group col-lg-6 mb-4">
+                        
+                            <select id="countryCode" name="countryCode" style="max-width: 80px"
+                                class="custom-select form-control bg-white border border-md h-100 font-weight-bold text-muted">
+                                <option value="+91" selected>+91</option>
+                            </select>
+                            <input id="mobile" type="tel" name="mobile" placeholder="Phone Number"
+                                class="form-control bg-white border-md border-left-0 pl-3" value="{{data['mobile']}}">
+                        </div>
+
+
+                        <!-- Email Address -->
+                        <div class="input-group col-lg-12 mb-4">
+                            <input id="address" type="text" name="address" placeholder="Address"
+                                class="form-control bg-white border border-md" value="{{data['address']}}">
+                        </div>
+
+                        <div class="input-group col-lg-6 mb-4">
+                            <input id="gst" type="text" name="gst" placeholder="GST No."
+                                class="form-control bg-white border border-md" value="{{data['gst']}}">
+                        </div>
+
+                        <div class="input-group col-lg-6 mb-4">
+                            <input id="website" type="text" name="website" placeholder="Website"
+                                class="form-control bg-white border border-md" value="{{data['website']}}">
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div style="position: absolute; right: 0; bottom: 0; margin-right: 30px;">
+                            <button class="btn btn-primary py-2 font-weight-bold">
+                                Edit
+                            </button>
+                            <button type="button" class="btn cancel btn-primary py-2"
+                                onclick="closeForm('{{id}}')">Close</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endmacro -%}
+
+{% macro temp() %}
+<div id="clientName" class="form-popup" style="z-index: 9;">
+    <form method="post" action="/addclientName">
+        <div style="display: flex; flex-direction: column; justify-content: center; ">
+            <div style="display: flex; justify-content: center;">
+                <h3>Add Client</h3>
+            </div>
+            <div>
+                <label for="clientName">Client Name</label>
+                <input type="text" name="clientName">
+                <label for="mailingName">Mailing Name</label>
+                <input type="text" name="mailingName">
+                <label for="address">Address</label>
+                <input type="text" name="address">
+                <label for="country">Country</label>
+                <input type="text" name="country">
+                <label for="state">State</label>
+                <input type="text" name="state">
+                <label for="city">City</label>
+                <input type="text" name="city">
+                <label for="pincode">Pincode</label>
+                <input type="number" name="pincode">
+                <label for="mobile">Mobile</label>
+                <input type="number" name="mobile">
+                <label for="email">Email</label>
+                <input type="email" name="email">
+                <label for="website">Website</label>
+                <input type="text" name="website">
+                <label for="gst">GST No.</label>
+                <input type="text" name="gst">
+            </div>
+            <div style="position: absolute; right: 0; bottom: 0;">
+                <button type="submit" class="btn">Create</button>
+                <button type="button" class="btn cancel" onclick="closeForm('clientName')">Close</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endmacro -%}

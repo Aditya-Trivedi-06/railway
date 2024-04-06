@@ -1,0 +1,9 @@
+{% extends 'layout.html' %}
+{% block title %} Edit Field {% endblock title %}
+{% block content %}
+<section style="margin: 40px;">
+    <h3>Edit Field</h3>
+    {% from "forms.html" import editForm %}
+    {{ editForm(field, data) }}
+</section>
+{% endblock content %}

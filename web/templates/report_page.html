@@ -1,0 +1,79 @@
+{% extends 'layout.html' %}
+{% block title %} Report {% endblock title %} 
+{% from 'macros.html' import reportFilter, jobReportTable %}
+
+{% block content %}
+
+<section style="padding: 30px;">
+    <div
+        style="
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        ">
+        <div>
+            <h2>Job Report</h2>
+        </div>
+    </div>
+    <button
+        onclick="showFilters()"
+        class="btn btn-primary">
+        Filters
+    </button>
+    <div
+        id="filters"
+        style="display: none; margin-top: 15px">
+        <form
+            method="POST"
+            action="/generateReport">
+            <div>
+                <table classs="table table-bordered">
+                    <tbody>
+                        <tr>
+                            {{ reportFilter('clientName', 'Client Name', clientName) }}
+                            {{ reportFilter('jobName', 'Job Name', jobName) }}
+                            {{ reportFilter('paperSupplierName', 'Paper Suppliers', paperSuppliers) }}
+                            {{ reportFilter('paperType', 'Paper Type', paperTypes) }}
+                        </tr>
+                        <tr>
+                            {{ reportFilter('printingSupplier', 'Printing Suppliers', printingSuppliers) }}
+                            {{ reportFilter('corrugationSupplier', 'Corrugation Suppliers', corrugationSuppliers) }}
+                            {{ reportFilter('punchSupplier', 'Punch Suppliers', punchSuppliers) }}
+                            {{ reportFilter('varnishSupplier', 'Varnish Suppliers', varnishSuppliers) }}
+                        </tr>
+                        <tr>
+                            {{ reportFilter('laminationSupplier', 'Lamination Suppliers', laminationSuppliers) }}
+                            {{ reportFilter('punchingSupplier', 'Punching Suppliers', punchingSuppliers) }}
+                            {{ reportFilter('plateSupplier', 'Plate Suppliers', plateSuppliers) }}
+                            {{ reportFilter('pastingSupplier', 'Pasting Suppliers', pastingSuppliers) }}
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <input type="date" name="startDate">
+                <input type="date" name="endDate">
+            </div>
+            <div style="display: flex; padding-top: 10px">
+                <button class="btn btn-success">Apply</button>
+            </div>
+        </form>
+    </div>
+    {{ jobReportTable(jobWorks) }}
+</section>
+
+{% endblock content %}
+
+{% block javascripts %}
+<script>
+    function showFilters() {
+        var x = document.getElementById("filters");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+</script>
+{% endblock javascripts %}

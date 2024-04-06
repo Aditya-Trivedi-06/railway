@@ -1,0 +1,91 @@
+{% extends "layout.html" %}
+{% block content %}
+<div>
+    <div style="display: flex; justify-content: center;">
+        <h1>
+            Welcome to the DashBoard
+        </h1>
+    </div>
+    
+    <div style="display: flex; justify-content: center;">
+        <h4>Statistics</h4>
+    </div>
+    <div style="display: flex">
+        <div id="chart_div"></div>
+        <div id="chart_div2"></div>
+    </div>
+    <div>
+        
+    </div>
+</div>
+{% endblock content %}
+{% block javascripts %}
+<script type="text/javascript">
+
+    // Load the Visualization API and the corechart package.
+    google.charts.load('current', { 'packages': ['corechart'] });
+
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.charts.setOnLoadCallback(drawChart);
+
+    // Callback that creates and populates a data table,
+    // instantiates the pie chart, passes in the data and
+    // draws it.
+    function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        var letters = {{ clients | safe
+    }}
+    console.log(letters)
+    data.addColumn('string', 'Topping');
+    data.addColumn('number', 'Slices');
+    data.addRows(letters);
+
+    // Set chart options
+    var options = {
+        'title': 'Clients',
+        'width': 700,
+        'height': 400
+    };
+
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+    chart.draw(data, options);
+            }
+</script>
+<script type="text/javascript">
+
+    // Load the Visualization API and the corechart package.
+    google.charts.load('current', { 'packages': ['corechart'] });
+
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.charts.setOnLoadCallback(drawChart);
+
+    // Callback that creates and populates a data table,
+    // instantiates the pie chart, passes in the data and
+    // draws it.
+    function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        var letters = {{ jobNames | safe
+    }}
+    console.log(letters)
+    data.addColumn('string', 'Topping');
+    data.addColumn('number', 'Slices');
+    data.addRows(letters);
+
+    // Set chart options
+    var options = {
+        'title': 'Job Names',
+        'width': 700,
+        'height': 400
+    };
+
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.PieChart(document.getElementById('chart_div2'));
+    chart.draw(data, options);
+            }
+</script>
+{% endblock javascripts %}
