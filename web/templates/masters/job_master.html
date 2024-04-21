@@ -3,7 +3,7 @@
     {% from 'macros.html' import jobTable %}
     <div style="display: flex">
         <div>
-            <button class="btn btn-secondary open-button" onclick="open('job_name_form')">Create</button>
+            <button class="btn btn-secondary open-button" onclick="openJobform('job_name_form')">Create</button>
         </div>
         <div id="job_name_form" class="job-form" style="z-index: 9; height: 170px; width: 50%;">
             <div class="container">
@@ -38,7 +38,7 @@
 
 {% block javascripts %}
     <script>
-    function open(id) {
+    function openJobform(id) {
         // console.log(id);
         // console.log(document.getElementById(id));
         document.getElementById(id).style.display = "block";
