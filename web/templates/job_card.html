@@ -1,461 +1,407 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta
-            http-equiv="X-UA-Compatible"
-            content="IE=edge" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
-        <link
-            rel="stylesheet"
-            href="../static/css/styles.css" />
-        <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
-            integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-            crossorigin="anonymous" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> -->
-        <style>
-        .popup {
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
-            display: none;
-        }
-        .popup-content {
-            background-color: white;
-            margin: 10% auto;
-            padding: 20px;
-            border: 1px solid #888888;
-            width: 30%;
-            font-weight: bolder;
-            border-radius: 10px;
-        }
-        .popup-content button {
-            display: block;
-            margin: 0 auto;
-        }
-        .show {
-            display: block;
-        }
-    </style>
-    </head>
-    <body style="padding-right: 10px">
-        <div
-            style="
+{% extends 'layout.html' %}
+{% block title %} Job Card {% endblock title %}
+{% block content %}
+<div style="padding-right: 10px">
+    <div style="
                 width: 100%;
                 display: flex;
                 flex-direction: column;
                 padding-left: 5px;
             ">
-            <div
-                style="
+        <div style="
                     width: 100%;
                     display: flex;
                     justify-content: space-around;
                     align-items: center;
                     margin-top: 15px;
                 ">
-                <div style="display: flex;">
-                    <div style="margin-right: 30px;">
-                        <a href="{{url_for('dashboard')}}">
-                        <img src="https://static.vecteezy.com/system/resources/previews/004/220/756/original/home-silhouette-button-free-vector.jpg" style="width: 40px;">
-                        </a>
-                    </div>
-                    <div>
-                        <a class="btn btn-dark" role="button" href="{{url_for('generateReport')}}">
-                            Reports
-                        </a>
-                    </div>
+            <div style="display: flex;">
+                <div style="margin-right: 30px;">
+                    <a href="{{url_for('dashboard')}}">
+                        <img src="https://static.vecteezy.com/system/resources/previews/004/220/756/original/home-silhouette-button-free-vector.jpg"
+                            style="width: 40px;">
+                    </a>
                 </div>
                 <div>
-                    <h1>Job Card</h1>
+                    <a class="btn btn-dark" role="button" href="{{url_for('generateReport')}}">
+                        Reports
+                    </a>
                 </div>
-                <div style="display: flex; justify-content: space-around;">
-                    <div style="margin-right: 10px;">
-                        <a href="/duplicateJob?jobid={{job['JobId']}}" class="btn btn-primary" role="button">
-                            Duplicate
-                        </a>
-                    </div>
-                    <!-- <div style="margin-right: 10px;">
+            </div>
+            <div>
+                <h1>Job Card</h1>
+            </div>
+            <div style="display: flex; justify-content: space-around;">
+                <div style="margin-right: 10px;">
+                    <a href="/duplicateJob?jobid={{job['JobId']}}" class="btn btn-primary" role="button">
+                        Duplicate
+                    </a>
+                </div>
+                <!-- <div style="margin-right: 10px;">
                         <button id="printButton" onclick="saveDiv()" class="btn btn-primary">Save</button>
                     </div> -->
-                    <div style="margin-right: 10px;">
-                        <a href="/editJob?jobid={{job['JobId']}}" class="btn btn-primary" role="button">
-                            Edit
-                        </a>
-                    </div>
-                    <div style="margin-right: 10px;">
-                        <button class="btn btn-danger" role="button" id="myButton">
-                            Delete
-                        </button>
-                    </div>
-                    <div id="myPopup" class="popup">
-                        <div class="popup-content">
-                            <div style="padding-bottom: 5px;">
-                                <h5>
-                                    Are you sure you want to delete this job card?
-                                </h5>
+                <div style="margin-right: 10px;">
+                    <a href="/editJob?jobid={{job['JobId']}}" class="btn btn-primary" role="button">
+                        Edit
+                    </a>
+                </div>
+                <div style="margin-right: 10px;">
+                    <button class="btn btn-danger" role="button" id="myButton">
+                        Delete
+                    </button>
+                </div>
+                <div id="myPopup" class="popup">
+                    <div class="popup-content">
+                        <div style="padding-bottom: 5px;">
+                            <h5>
+                                Are you sure you want to delete this job card?
+                            </h5>
+                        </div>
+                        <div style="display: flex; justify-content: space-around;">
+                            <div>
+                                <a href="/delete?jobid={{job['JobId']}}" class="btn btn-danger" role="button">
+                                    Confirm
+                                </a>
                             </div>
-                            <div style="display: flex; justify-content: space-around;">
-                                <div>
-                                    <a href="/delete?jobid={{job['JobId']}}" class="btn btn-danger" role="button">
-                                        Confirm
-                                    </a>
-                                </div>
-                                <div>
-                                    <button id="closePopup" class="btn btn-primary">
-                                        Cancel
-                                    </button>
-                                </div>
+                            <div>
+                                <button id="closePopup" class="btn btn-primary">
+                                    Cancel
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div style="width: 100%; padding: 20px;">
-                <table
-                    style="width: 100%;"
-                    class="table table-bordered"
-                    id="printTable">
-                    <tbody>
-                        <tr>
-                            <td colspan="2"> <h4>Job Details</h4> </td>
-                        </tr>
-                        <tr>
-                            <td class="leftRow">
-                                <div class="tableHeaders">
-                                    <div class="tableNames">Client Name</div>
-                                    <div class="tableContent">{{ job['clientName'] }}</div>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="display: flex">
-                                    <div class="tableNames">Date</div>
-                                    <div class="tableContent">{{ job['date'] }}</div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="leftRow">
-                                <div style="display: flex">
-                                    <div class="tableNames">Job Name</div>
-                                    <div class="tableContent"><b>{{ job['jobName'] }}</b></div>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="display: flex">
-                                    <div class="tableNames">Qty</div>
-                                    <div class="tableContent">{{ job['qty'] }}</div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="leftRow">
-                                <div style="display: flex">
-                                    <div class="tableNames">
-                                        Job Description
-                                    </div>
-                                    <div class="tableContent">{{ job['description'] }}</div>
-                                </div>
-                            </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <h4>Paper Details</h4>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="leftRow">
-                                <div style="display: flex">
-                                    <div class="tableNames">Supplier Name</div>
-                                    <div class="tableContent"><b>{{ job['paperSupplierName'] }}</b></div>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="display: flex">
-                                    <div class="tableNames">Gsm</div>
-                                    <div class="tableContent">{{ job['gsm'] }}</div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="leftRow">
-                                <div style="display: flex">
-                                    <div class="tableNames">Paper Type</div>
-                                    <div class="tableContent">{{ job['paperType'] }}</div>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="display: flex">
-                                    <div class="tableNames">Paper Size</div>
-                                    <div class="tableContent">{{ job['paperSize'] }}</div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                            </td>
-                            <td>
-                                <div style="display: flex">
-                                    <div class="tableNames">Paper Qty</div>
-                                    <div class="tableContent">{{ job['paperQty'] }}</div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <h4>Printing Details</h4>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="leftRow">
-                                <div style="display: flex">
-                                    <div class="tableNames">Supplier Name</div>
-                                    <div class="tableContent"><b>{{ job['printingSupplierName'] }}</b></div>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="display: flex">
-                                    <div class="tableNames">Color</div>
-                                    <div class="tableContent">{{ job['color'] }}</div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="leftRow">
-                                <div style="display: flex">
-                                    <div class="tableNames">Printing Description</div>
-                                    <div class="tableContent">{{ job['printingDescription'] }}</div>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="display: flex">
-                                    <div class="tableNames">Print Size</div>
-                                    <div class="tableContent">{{ job['printSize'] }}</div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                
-                            </td>
-                            <td>
-                                <div style="display: flex">
-                                    <div class="tableNames">Print Qty</div>
-                                    <div class="tableContent">{{ job['printQty'] }}</div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <h4>
-                                    Corrugation Details
-                                </h4>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="leftRow">
-                                <div style="display: flex">
-                                    <div class="tableNames">Supplier Name</div>
-                                    <div class="tableContent">{{ job['corrugationSupplierName'] }}</div>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="display: flex">
-                                    <div class="tableNames">Ply</div>
-                                    <div class="tableContent">{{ job['ply'] }}</div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="leftRow">
-                                <div style="display: flex">
-                                    <div class="tableNames">Ply Description</div>
-                                    <div class="tableContent">{{ job['plyDescription'] }}</div>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="display: flex">
-                                    <div class="tableNames">Ply Size</div>
-                                    <div class="tableContent">{{ job['plySize'] }}</div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                            </td>
-                            <td>
-                                <div style="display: flex">
-                                    <div class="tableNames">Ply Qty</div>
-                                    <div class="tableContent">{{ job['plyQty'] }}</div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <h4>
-                                    Other Details
-                                </h4>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="leftRow">
-                                <div style="display: flex">
-                                    <div class="tableNames">Plate Supplier</div>
-                                    <div class="tableContent">{{ job['plateSupplierName'] }}</div>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="display: flex">
-                                    <div class="tableNames">Qty</div>
-                                    <div class="tableContent">{{ job['plateQty'] }}</div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="leftRow">
-                                <div style="display: flex">
-                                    <div class="tableNames">Punch Supplier</div>
-                                    <div class="tableContent">{{ job['punchSuppliers'] }}</div>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="display: flex">
-                                    <div class="tableNames">Qty</div>
-                                    <div class="tableContent">{{ job['punchQty'] }}</div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="leftRow">
-                                <div style="display: flex">
-                                    <div class="tableNames">Varnish Supplier</div>
-                                    <div class="tableContent">{{ job['varnishSuppliers'] }}</div>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="display: flex">
-                                    <div class="tableNames">Qty</div>
-                                    <div class="tableContent">{{ job['varnishQty'] }}</div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="leftRow">
-                                <div style="display: flex">
-                                    <div class="tableNames">Lamination Supplier</div>
-                                    <div class="tableContent">{{ job['laminationSuppliers'] }}</div>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="display: flex">
-                                    <div class="tableNames">Qty</div>
-                                    <div class="tableContent">{{ job['laminationQty'] }}</div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="leftRow">
-                                <div style="display: flex">
-                                    <div class="tableNames">Punching Supplier</div>
-                                    <div class="tableContent">{{ job['punchingSuppliers'] }}</div>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="display: flex">
-                                    <div class="tableNames">Qty</div>
-                                    <div class="tableContent">{{ job['punchingQty'] }}</div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="leftRow">
-                                <div style="display: flex">
-                                    <div class="tableNames">Pasting Supplier</div>
-                                    <div class="tableContent">{{ job['pastingSuppliers'] }}</div>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="display: flex">
-                                    <div class="tableNames">Qty</div>
-                                    <div class="tableContent">{{ job['pastingQty'] }}</div>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
         </div>
-        <script>
-            document.onkeydown = function(evt) {
-                evt = evt || window.event;
-                var isEscape = false;
-                if ("key" in evt) {
-                    isEscape = (evt.key === "Escape" || evt.key === "Esc");
-                } else {
-                    isEscape = (evt.keyCode === 27);
-                }
-                if (isEscape) {
-                    myPopup.classList.remove("show");
-                }
-            };
-            myButton.addEventListener("click", function () {
-                myPopup.classList.add("show");
-            });
-            closePopup.addEventListener("click", function () {
+        <div style="width: 100%; padding: 20px;">
+            <table style="width: 100%;" class="table table-bordered" id="printTable">
+                <tbody>
+                    <tr>
+                        <td colspan="2">
+                            <h4>Job Details</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="leftRow">
+                            <div class="tableHeaders">
+                                <div class="tableNames">Client Name</div>
+                                <div class="tableContent">{{ job['clientName'] }}</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="display: flex">
+                                <div class="tableNames">Date</div>
+                                <div class="tableContent">{{ job['date'] }}</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="leftRow">
+                            <div style="display: flex">
+                                <div class="tableNames">Job Name</div>
+                                <div class="tableContent"><b>{{ job['jobName'] }}</b></div>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="display: flex">
+                                <div class="tableNames">Qty</div>
+                                <div class="tableContent">{{ job['qty'] }}</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="leftRow">
+                            <div style="display: flex">
+                                <div class="tableNames">
+                                    Job Description
+                                </div>
+                                <div class="tableContent">{{ job['description'] }}</div>
+                            </div>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <h4>Paper Details</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="leftRow">
+                            <div style="display: flex">
+                                <div class="tableNames">Supplier Name</div>
+                                <div class="tableContent"><b>{{ job['paperSupplierName'] }}</b></div>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="display: flex">
+                                <div class="tableNames">Gsm</div>
+                                <div class="tableContent">{{ job['gsm'] }}</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="leftRow">
+                            <div style="display: flex">
+                                <div class="tableNames">Paper Type</div>
+                                <div class="tableContent">{{ job['paperType'] }}</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="display: flex">
+                                <div class="tableNames">Paper Size</div>
+                                <div class="tableContent">{{ job['paperSize'] }}</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            <div style="display: flex">
+                                <div class="tableNames">Paper Qty</div>
+                                <div class="tableContent">{{ job['paperQty'] }}</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <h4>Printing Details</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="leftRow">
+                            <div style="display: flex">
+                                <div class="tableNames">Supplier Name</div>
+                                <div class="tableContent"><b>{{ job['printingSupplierName'] }}</b></div>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="display: flex">
+                                <div class="tableNames">Color</div>
+                                <div class="tableContent">{{ job['color'] }}</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="leftRow">
+                            <div style="display: flex">
+                                <div class="tableNames">Printing Description</div>
+                                <div class="tableContent">{{ job['printingDescription'] }}</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="display: flex">
+                                <div class="tableNames">Print Size</div>
+                                <div class="tableContent">{{ job['printSize'] }}</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+
+                        </td>
+                        <td>
+                            <div style="display: flex">
+                                <div class="tableNames">Print Qty</div>
+                                <div class="tableContent">{{ job['printQty'] }}</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <h4>
+                                Corrugation Details
+                            </h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="leftRow">
+                            <div style="display: flex">
+                                <div class="tableNames">Supplier Name</div>
+                                <div class="tableContent">{{ job['corrugationSupplierName'] }}</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="display: flex">
+                                <div class="tableNames">Ply</div>
+                                <div class="tableContent">{{ job['ply'] }}</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="leftRow">
+                            <div style="display: flex">
+                                <div class="tableNames">Ply Description</div>
+                                <div class="tableContent">{{ job['plyDescription'] }}</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="display: flex">
+                                <div class="tableNames">Ply Size</div>
+                                <div class="tableContent">{{ job['plySize'] }}</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            <div style="display: flex">
+                                <div class="tableNames">Ply Qty</div>
+                                <div class="tableContent">{{ job['plyQty'] }}</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <h4>
+                                Other Details
+                            </h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="leftRow">
+                            <div style="display: flex">
+                                <div class="tableNames">Plate Supplier</div>
+                                <div class="tableContent">{{ job['plateSupplierName'] }}</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="display: flex">
+                                <div class="tableNames">Qty</div>
+                                <div class="tableContent">{{ job['plateQty'] }}</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="leftRow">
+                            <div style="display: flex">
+                                <div class="tableNames">Punch Supplier</div>
+                                <div class="tableContent">{{ job['punchSuppliers'] }}</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="display: flex">
+                                <div class="tableNames">Qty</div>
+                                <div class="tableContent">{{ job['punchQty'] }}</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="leftRow">
+                            <div style="display: flex">
+                                <div class="tableNames">Varnish Supplier</div>
+                                <div class="tableContent">{{ job['varnishSuppliers'] }}</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="display: flex">
+                                <div class="tableNames">Qty</div>
+                                <div class="tableContent">{{ job['varnishQty'] }}</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="leftRow">
+                            <div style="display: flex">
+                                <div class="tableNames">Lamination Supplier</div>
+                                <div class="tableContent">{{ job['laminationSuppliers'] }}</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="display: flex">
+                                <div class="tableNames">Qty</div>
+                                <div class="tableContent">{{ job['laminationQty'] }}</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="leftRow">
+                            <div style="display: flex">
+                                <div class="tableNames">Punching Supplier</div>
+                                <div class="tableContent">{{ job['punchingSuppliers'] }}</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="display: flex">
+                                <div class="tableNames">Qty</div>
+                                <div class="tableContent">{{ job['punchingQty'] }}</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="leftRow">
+                            <div style="display: flex">
+                                <div class="tableNames">Pasting Supplier</div>
+                                <div class="tableContent">{{ job['pastingSuppliers'] }}</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="display: flex">
+                                <div class="tableNames">Qty</div>
+                                <div class="tableContent">{{ job['pastingQty'] }}</div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        document.onkeydown = function (evt) {
+            evt = evt || window.event;
+            var isEscape = false;
+            if ("key" in evt) {
+                isEscape = (evt.key === "Escape" || evt.key === "Esc");
+            } else {
+                isEscape = (evt.keyCode === 27);
+            }
+            if (isEscape) {
                 myPopup.classList.remove("show");
-            });
-            window.addEventListener("click", function (event) {
-                if (event.target == myPopup) {
-                    myPopup.classList.remove("show");
-                }
-            });
-        </script>
-        <script>
-        function printData()
-            {
-            var divToPrint=document.getElementById("printTable");
-            newWin= window.open("");
+            }
+        };
+        myButton.addEventListener("click", function () {
+            myPopup.classList.add("show");
+        });
+        closePopup.addEventListener("click", function () {
+            myPopup.classList.remove("show");
+        });
+        window.addEventListener("click", function (event) {
+            if (event.target == myPopup) {
+                myPopup.classList.remove("show");
+            }
+        });
+    </script>
+    <script>
+        function printData() {
+            var divToPrint = document.getElementById("printTable");
+            newWin = window.open("");
             newWin.document.write('<html> <head> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" /> </head>');
             newWin.document.write('<body>')
             newWin.document.write(divToPrint.outerHTML);
             newWin.document.write('</body></html>');
             newWin.print();
             newWin.close();
-            }
-            // var doc = new jsPDF();
-            // var pdf = new jsPDF('p','pt','a4');
-            // function saveDiv(divId) {
-            //     var divToPrint=document.getElementById("printTable");
-            //     pdf.addHTML( divToPrint , function() {
-            //     pdf.save('filename.pdf');
-            // });
-            //     // doc.fromHTML(divToPrint);
-            //     // doc.save('div.pdf');
-            // }
-        </script>
-        <script
-            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-        <script
-            src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
-            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-            crossorigin="anonymous"></script>
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
-            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-            crossorigin="anonymous"></script>
-    </body>
-</html>
+        }
+        // var doc = new jsPDF();
+        // var pdf = new jsPDF('p','pt','a4');
+        // function saveDiv(divId) {
+        //     var divToPrint=document.getElementById("printTable");
+        //     pdf.addHTML( divToPrint , function() {
+        //     pdf.save('filename.pdf');
+        // });
+        //     // doc.fromHTML(divToPrint);
+        //     // doc.save('div.pdf');
+        // }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+</div>
+{% endblock %}

@@ -42,7 +42,6 @@ def duplicateJobCard():
         return render_template('duplicateJob.html', jobId=dt_string, jobDate=jobDate, job=jobWork, clients=clients, paperTypes=paperTypes, jobNames=jobNames, paperSuppliers=paperSuppliers, printingSuppliers=printingSuppliers, corrugationSuppliers=corrugationSuppliers,
                                plateSuppliers=plateSuppliers, punchSuppliers=punchSuppliers, varnishSuppliers=varnishSuppliers, laminationSuppliers=laminationSuppliers, punchingSuppliers=punchingSuppliers, pastingSuppliers=pastingSuppliers)
 
-
 @app.route('/editJob', methods=['GET', 'POST'])
 def editJobCard():
 
@@ -215,7 +214,7 @@ def editField():
         if field == 'clientName':
             data = getClient(name)
             return render_template('editFieldInput.html',  field=field, data=data)
-        elif field == 'paperType':
+        elif field == 'paperTypeName':
             data = getpaperType(name)
             return render_template('editFieldInput.html',  field=field, data=data)
         elif field == 'jobName':
@@ -238,7 +237,7 @@ def editField():
         if field == 'clientName':
             editClientDb(name, data)
             return redirect(url_for('clientMaster'))
-        elif field == 'paperType':
+        elif field == 'paperTypeName':
             editPaperTypeDb(name, data)
             return redirect(url_for('paperTypeMaster'))
         elif field == 'jobName':

@@ -16,7 +16,7 @@
                         <th>Gst</th>
                     </tr>
                     {% for row in data %}
-                    <tr class ='tableColumn'>
+                    <tr class='tableColumn'>
                         <div style="display: flex;" id="temp">
                             <td class="table-data table-name">{{row['name']}}</td>
                             <td class="table-data">{{row['address']}}</td>
@@ -26,38 +26,6 @@
                             <td class="table-data">{{row['mobile']}}</td>
                             <td class="table-data">{{row['email']}}</td>
                             <td class="table-data">{{row['gst']}}</td>
-                        </div>
-                        <td style="position: sticky; right:70px; z-index: 2;">
-                            <a href="/editfield?field={{id}}&row={{row['name']}}" class="btnRow btn-secondary" style="width: 60px" id="myButton">
-                                Edit
-                            </a>
-                        </td>
-                        <td style="position: sticky; right: 0px; z-index: 2;">
-                            <a href="/deletefield?field={{id}}&row={{row['name']}}" class="btnRow btn-danger" style="width: 60px">Delete</a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-{% endmacro -%}
-
-{% macro jobTable(id, name, data) -%}
-<div style="margin: 20px">
-    <h4>{{name}}</h4>
-    <div style="display: flex">
-        <div style="width: 100%; padding: 10px; margin-right: 20px">
-            <table class="table-striped table-bordered table-hover table-responsive" style="overflow-x: scroll;">
-                <tbody>
-                    <tr>
-                        <th>Name</th>
-                    </tr>
-                    {% for row in data %}
-                    <tr class='tableColumn'>
-                        <div style="display: flex;" id="temp">
-                            <td class="table-data table-name"><a href="/onlyJob?job={{row['name']}}">{{row['name']}}</a></td>
                         </div>
                         <td style="position: sticky; right:70px; z-index: 2;">
                             <a href="/editfield?field={{id}}&row={{row['name']}}" class="btnRow btn-secondary"
@@ -78,20 +46,53 @@
 </div>
 {% endmacro -%}
 
+{% macro jobTable(id, name, data) -%}
+{% from 'forms.html' import editFormShort%}
+<div style="margin: 20px">
+    <h4>{{name}}</h4>
+    <div style="display: flex">
+        <div style="width: 100%; padding: 10px; margin-right: 20px">
+            <table class="table-striped table-bordered table-hover table-responsive" style="overflow-x: scroll;">
+                <tbody>
+                    <tr>
+                        <th>Name</th>
+                    </tr>
+                    {% for row in data %}
+                    <tr class='tableColumn'>
+                        <div style="display: flex;" id="temp">
+                            <td class="table-data table-name"><a href="/onlyJob?job={{row['name']}}">{{row['name']}}</a>
+                            </td>
+                        </div>
+                        <td style="position: sticky; right:70px; z-index: 2;">
+                            <button onclick="openForm('{{row['name']}}')" class="btnRow btn-secondary"
+                                style="width: 60px" id="myButton">
+                                Edit
+                            </button>
+                            {{ editFormShort(name, row['name'], id, row['name']) }}
+                        </td>
+                        <td style="position: sticky; right: 0px; z-index: 2;">
+                            <a href="/deletefield?field={{id}}&row={{row['name']}}" class="btnRow btn-danger"
+                                style="width: 60px">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endmacro -%}
+
 {% macro jobCardDropdown(id, name, data) %}
 <div class="form-group col-md-4">
     <label for="{{id}}">{{name}}</label>
-    <div
-        style="
+    <div style="
             display: flex;
             justify-content: center;
             height: 35px;
             align-items: center;
         ">
-        <select
-            name="{{id}}"
-            id="{{id}}"
-            style="width: 100%; ">
+        <select name="{{id}}" id="{{id}}" style="width: 100%; ">
             <option></option>
             {% for row in data %}
             <option value="{{row['name']}}">
@@ -105,13 +106,8 @@
 
 {% macro jobCardField(id, name, type, len, req=0) %}
 <div class="form-group col-md-{{len}}">
-    <label for="{{id}}">{{name}}</label
-    ><input
-        class="form-control"
-        type="{{type}}"
-        name="{{id}}"
-        id="{{id}}"
-        {% if req %} required {% endif %}/>
+    <label for="{{id}}">{{name}}</label><input class="form-control" type="{{type}}" name="{{id}}" id="{{id}}" {% if req
+        %} required {% endif %} />
 </div>
 {% endmacro %}
 
@@ -119,10 +115,7 @@
 <td>
     <div class="filterBlocks">
         {{name}}
-        <select
-            name="{{id}}"
-            id="{{id}}"
-            style="width: 100%">
+        <select name="{{id}}" id="{{id}}" style="width: 100%">
             <option value="null"></option>
             {% for row in data %}
             <option value="{{row['name']}}">
