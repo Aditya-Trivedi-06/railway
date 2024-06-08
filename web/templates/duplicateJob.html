@@ -14,8 +14,8 @@
                 <h4>Job Card</h4>
                 <div class="form-row">
                     <div class="form-group col-md-2">
-                        <label for="JobId">Job Id</label><input class="form-control" type="text"
-                            value="{{jobId}}" name="JobId" readonly required />
+                        <label for="JobId">Job Id</label><input class="form-control" type="text" value="{{jobId}}"
+                            name="JobId" readonly required />
                     </div>
                     <div class="form-group col-md-4">
                         <label for="clientName">Client Name</label>
@@ -409,6 +409,8 @@
             <button type="submit" class="btn btn-primary">
                 Save
             </button>
+            <a role="button" class="btn btn-primary" href="/job?jobid={{job['JobId']}}">Cancel</a>
         </form>
     </div>
 </div>
+{% endblock %}
