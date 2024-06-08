@@ -82,7 +82,9 @@
                 </div>
                 <div style="display: flex; justify-content: space-around;">
                     <div style="margin-right: 10px;">
-                        <button id="printButton" onclick="printData()" class="btn btn-primary">Print</button>
+                        <a href="/editJob?jobid={{job['JobId']}}" class="btn btn-primary" role="button">
+                            Duplicate
+                        </a>
                     </div>
                     <!-- <div style="margin-right: 10px;">
                         <button id="printButton" onclick="saveDiv()" class="btn btn-primary">Save</button>

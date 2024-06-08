@@ -30,6 +30,19 @@ def createJobCard():
         except :
             return redirect(url_for("errorPage"))
 
+@app.route('/duplicateJob', methods=['POST', 'GET'])
+def duplicateJobCard():
+    if request.method == 'GET':
+        jobId = request.args.get("jobid")
+        jobWork = getJobWork(jobId)
+        now = datetime.now()
+        dt_string = now.strftime("%Y%m%d%H%M%S")
+        clients, paperTypes, jobNames, paperSuppliers, printingSuppliers, plateSuppliers, punchSuppliers, varnishSuppliers, laminationSuppliers, punchingSuppliers, pastingSuppliers, corrugationSuppliers = getAllMasters()
+        jobDate = now.strftime("%Y-%m-%d")
+        return render_template('duplicateJob.html', jobId=dt_string, jobDate=jobDate, job=jobWork, clients=clients, paperTypes=paperTypes, jobNames=jobNames, paperSuppliers=paperSuppliers, printingSuppliers=printingSuppliers, corrugationSuppliers=corrugationSuppliers,
+                               plateSuppliers=plateSuppliers, punchSuppliers=punchSuppliers, varnishSuppliers=varnishSuppliers, laminationSuppliers=laminationSuppliers, punchingSuppliers=punchingSuppliers, pastingSuppliers=pastingSuppliers)
+
+
 @app.route('/editJob', methods=['GET', 'POST'])
 def editJobCard():
 
