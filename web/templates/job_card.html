@@ -148,18 +148,36 @@
                         </td>
                         <td>
                             <div style="display: flex">
-                                <div class="tableNames">Paper Size</div>
-                                <div class="tableContent">{{ job['paperSize'] }}</div>
+                                <div class="tableNames">Paper Qty</div>
+                                <div class="tableContent">{{ job['paperQty'] }}</div>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td>
+                            <table style="width: 100%;">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                        <div style="display: flex">
+                                            <div class="tableNames"> Length</div>
+                                            <div class="tableContent">{{ job['paperLength'] }}</div>
+                                        </div>
+                                        </td>
+                                        <td>
+                                        <div style="display: flex">
+                                            <div class="tableNames"> Width</div>
+                                            <div class="tableContent">{{ job['paperWidth'] }}</div>
+                                        </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </td>
                         <td>
                             <div style="display: flex">
-                                <div class="tableNames">Paper Qty</div>
-                                <div class="tableContent">{{ job['paperQty'] }}</div>
+                                <div class="tableNames">Paper Size</div>
+                                <div class="tableContent">{{ job['paperSize'] }}</div>
                             </div>
                         </td>
                     </tr>

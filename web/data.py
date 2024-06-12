@@ -23,13 +23,11 @@ punchingSuppliersCollection = mydb["punchingSuppliers"]
 pastingSuppliersCollection = mydb["pastingSuppliers"]
 corrugationSuppliersCollection = mydb["corrugationSuppliers"]
 
-
 def getAllJobWorks():
     now = datetime.now()
     dt_string = now.strftime("%Y-%m-01")
     allJobWork = list(mycol.find({"date": {"$gte": dt_string}}).sort("date", 1))
     return allJobWork
-
 
 def clientNumbers():
     clients = mycol.find({}).sort("clientName", 1)
@@ -44,7 +42,6 @@ def clientNumbers():
         ls.append([row, dic[row]])
     return ls
 
-
 def jobNameNumbers():
     jobNames = mycol.find({}).sort("jobName", 1)
     dic = {}
@@ -58,11 +55,9 @@ def jobNameNumbers():
         ls.append([row, dic[row]])
     return ls
 
-
 def getOnlyJob(jobName):
     onlyJob = list(mycol.find({"jobName": jobName}).sort("date", 1))
     return onlyJob
-
 
 def getAllJobWork(
     startDate,
@@ -118,13 +113,11 @@ def getAllJobWork(
 
     return allJobWork
 
-
 def getJobWork(jobId):
     myquery = {"JobId": f"{jobId}"}
     print(myquery)
     jobWork = mycol.find(myquery).collation({"locale": "en", "strength": 2})[0]
     return jobWork
-
 
 def addJobWork(data):
     try:
@@ -133,14 +126,12 @@ def addJobWork(data):
     except:
         return 0
 
-
 def updateJobWork(jobId, data):
     try:
         mycol.update_one({"JobId": jobId}, {"$set": data})
         return 1
     except:
         return 0
-
 
 def deleteJobWork(jobId):
     try:
@@ -149,17 +140,14 @@ def deleteJobWork(jobId):
     except:
         return 0
 
-
 # Clients
 def getAllClients():
     clients = clientsCollection.find({}).sort("name", 1)
     return clients
 
-
 def getClient(name):
     client = clientsCollection.find_one({"name": name})
     return client
-
 
 def addClientDb(
     clientName,
@@ -195,14 +183,12 @@ def addClientDb(
     except:
         return 0
 
-
 def deleteClientDb(clientName):
     try:
         clientsCollection.delete_one({"name": clientName})
         return 1
     except:
         return 0
-
 
 def editClientDb(clientName, data):
     try:
@@ -237,17 +223,14 @@ def editClientDb(clientName, data):
     except:
         return 0
 
-
 # Paper Types
 def getAllPaperType():
     paperTypes = paperTypeCollection.find({}).sort("name", 1)
     return paperTypes
 
-
 def getpaperType(name):
     paperType = paperTypeCollection.find_one({"name": name})
     return paperType
-
 
 def addPaperTypeDb(paperType):
     try:
@@ -256,7 +239,6 @@ def addPaperTypeDb(paperType):
     except:
         return 0
 
-
 def deletePaperTypeDb(paperType):
     try:
         paperTypeCollection.delete_one({"name": paperType})
@@ -264,27 +246,21 @@ def deletePaperTypeDb(paperType):
     except:
         return 0
 
-
 def editPaperTypeDb(paperType, data):
     try:
-        paperTypeCollection.update_one(
-            {"name": paperType}, {"$set": {"name": data["name"]}}
-        )
+        paperTypeCollection.update_one({"name": paperType}, {"$set": {"name": data['name']}})
         return 1
     except:
         return 0
-
 
 # Job Names
 def getAllJobNames():
     jobNames = jobNamesCollection.find({}).sort("name", 1)
     return jobNames
 
-
 def getJob(name):
     jobName = jobNamesCollection.find_one({"name": name})
     return jobName
-
 
 def addJobNamesDb(jobName):
     try:
@@ -293,14 +269,12 @@ def addJobNamesDb(jobName):
     except:
         return 0
 
-
 def deleteJobNameDb(jobName):
     try:
         jobNamesCollection.delete_one({"name": jobName})
         return 1
     except:
         return 0
-
 
 def editJobNameDb(jobName, data):
     try:
@@ -319,17 +293,14 @@ def editJobNameDb(jobName, data):
     except:
         return 0
 
-
 # Paper
 def getAllPaperSuppliers():
     paperSuppliers = paperSuppliersCollection.find({}).sort("name", 1)
     return paperSuppliers
 
-
 def getPaperSupplier(name):
     paperSupplier = paperSuppliersCollection.find_one({"name": name})
     return paperSupplier
-
 
 def addPaperSupplierDb(
     paperSupplierName,
@@ -365,14 +336,12 @@ def addPaperSupplierDb(
     except:
         return 0
 
-
 def deletePaperSupplierDb(supplierName):
     try:
         paperSuppliersCollection.delete_one({"name": supplierName})
         return 1
     except:
         return 0
-
 
 def editPaperSupplierDb(supplierName, data):
     try:
@@ -383,17 +352,14 @@ def editPaperSupplierDb(supplierName, data):
     except:
         return 0
 
-
 # Printing
 def getAllPrintingSuppliers():
     printingSuppliers = printingSuppliersCollection.find({}).sort("name", 1)
     return printingSuppliers
 
-
 def getPrintingSupplier(name):
     printingSupplier = printingSuppliersCollection.find_one({"name": name})
     return printingSupplier
-
 
 def addPrintingSupplierDb(
     printingSupplierName,
@@ -429,14 +395,12 @@ def addPrintingSupplierDb(
     except:
         return 0
 
-
 def deletePrintingSupplierDb(supplierName):
     try:
         printingSuppliersCollection.delete_one({"name": supplierName})
         return 1
     except:
         return 0
-
 
 def editPrintingSupplierDb(supplierName, data):
     try:
@@ -447,17 +411,14 @@ def editPrintingSupplierDb(supplierName, data):
     except:
         return 0
 
-
 # Corrugation
 def getAllCorrugationSuppliers():
     corrugationSuppliers = corrugationSuppliersCollection.find({}).sort("name", 1)
     return corrugationSuppliers
 
-
 def getCorrugationSupplier(name):
     corrugationSupplier = corrugationSuppliersCollection.find_one({"name": name})
     return corrugationSupplier
-
 
 def addCorrugationSupplierDb(
     corrugationSupplierName,
@@ -494,14 +455,12 @@ def addCorrugationSupplierDb(
     except:
         return 0
 
-
 def deleteCorrugationSupplierDb(supplierName):
     try:
         corrugationSuppliersCollection.delete_one({"name": supplierName})
         return 1
     except:
         return 0
-
 
 def editCorrugationSupplierDb(supplierName, data):
     try:
@@ -512,36 +471,29 @@ def editCorrugationSupplierDb(supplierName, data):
     except:
         return 0
 
-
 def getAllPlateSuppliers():
     plateSuppliers = plateSuppliersCollection.find({}).sort("name", 1)
     return plateSuppliers
-
 
 def getAllPunchSuppliers():
     punchSuppliers = punchSuppliersCollection.find({}).sort("name", 1)
     return punchSuppliers
 
-
 def getAllVarnishSuppliers():
     varnishSuppliers = varnishSuppliersCollection.find({}).sort("name", 1)
     return varnishSuppliers
-
 
 def getAlllaminationSuppliers():
     laminationSuppliers = laminationSuppliersCollection.find({}).sort("name", 1)
     return laminationSuppliers
 
-
 def getAllPunchingSuppliers():
     punchingSuppliers = punchingSuppliersCollection.find({}).sort("name", 1)
     return punchingSuppliers
 
-
 def getAllPastingSuppliers():
     pastingSuppliers = pastingSuppliersCollection.find({}).sort("name", 1)
     return pastingSuppliers
-
 
 def getAllMasters():
     clients = getAllClients()
@@ -569,5 +521,5 @@ def getAllMasters():
         laminationSuppliers,
         punchingSuppliers,
         pastingSuppliers,
-        corrugationSuppliers,
+        corrugationSuppliers
     )

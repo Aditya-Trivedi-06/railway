@@ -14,7 +14,9 @@ def extractData(request):
     data['paperSupplierName'] = request.form['paperSupplierName']
     data['paperType'] = request.form['paperType']
     data['gsm'] = request.form['gsm']
-    data['paperSize'] = request.form['paperSize']
+    data['paperLength'] = request.form['paperLength']
+    data['paperWidth'] = request.form['paperWidth']
+    data["paperSize"] = request.form["paperSize"]
     data['paperQty'] = request.form['paperQty']
 
     # Printing

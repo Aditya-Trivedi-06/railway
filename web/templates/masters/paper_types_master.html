@@ -1,6 +1,59 @@
 {% extends 'layout.html' %}
 {% block content %}
-    {% from 'macros.html' import table, master %}
-    {{ master('paperTypeName', 'Paper type', paperTypes) }}
-    {{ table('paperTypeName', 'Paper type', paperTypes) }}
+    {% from 'macros.html' import jobTable %}
+    <div style="display: flex">
+        <div>
+            <button class="btn btn-secondary open-button" onclick="openJobForm('job_name_form')">Create</button>
+        </div>
+        <div id="job_name_form" class="job-form" style="z-index: 9; height: 170px; width: 50%; display: none;">
+            <div class="container">
+                <div class="align-items-center">
+                    <div style="display: flex; justify-content: center;">
+                        <h5>Add a Paper type</h5>
+                    </div>
+                    <div>
+                        <form method="POST" action="/addpaperType">
+                            <div class="row">
+                                <!-- Name -->
+                                <div class="input-group">
+                                    <input id="paperType" type="text" name="paperType" placeholder="Paper Type"
+                                        class="form-control border" required>
+                                </div>
+                            </div>
+                            <!-- Submit Button -->
+                            <div class="row">
+                                <button class="btn btn-primary py-2 font-weight-bold" style="margin: 5px;">
+                                    Add
+                                </button>
+                                <button style="margin: 5px;" type="button" class="btn cancel btn-primary py-2"
+                                    onclick="closeForm('job_name_form')">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ jobTable('paperTypeName', 'Paper type', paperTypes) }}
+{% endblock %}
+{% block javascripts %}
+<script>
+    function openJobForm(id) {
+        console.log(id);
+        // console.log(document.getElementById(id).style.display);
+        document.getElementById(id).style.display = "block";
+        // console.log(document.getElementById(id).style.display);
+    }
+    function closeForm(id) {
+        document.getElementById(id).style.display = "none";
+    }
+    $(function () {
+        $('input, select').on('focus', function () {
+            $(this).parent().find('.input-group-text').css('border-color', '#80bdff');
+        });
+        $('input, select').on('blur', function () {
+            $(this).parent().find('.input-group-text').css('border-color', '#ced4da');
+        });
+    });
+</script>
 {% endblock %}

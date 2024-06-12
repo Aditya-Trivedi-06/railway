@@ -16,7 +16,7 @@
                         <th>Gst</th>
                     </tr>
                     {% for row in data %}
-                    <tr class='tableColumn'>
+                    <tr class ='tableColumn'>
                         <div style="display: flex;" id="temp">
                             <td class="table-data table-name">{{row['name']}}</td>
                             <td class="table-data">{{row['address']}}</td>
@@ -28,14 +28,12 @@
                             <td class="table-data">{{row['gst']}}</td>
                         </div>
                         <td style="position: sticky; right:70px; z-index: 2;">
-                            <a href="/editfield?field={{id}}&row={{row['name']}}" class="btnRow btn-secondary"
-                                style="width: 60px" id="myButton">
+                            <a href="/editfield?field={{id}}&row={{row['name']}}" class="btnRow btn-secondary" style="width: 60px" id="myButton">
                                 Edit
                             </a>
                         </td>
                         <td style="position: sticky; right: 0px; z-index: 2;">
-                            <a href="/deletefield?field={{id}}&row={{row['name']}}" class="btnRow btn-danger"
-                                style="width: 60px">Delete</a>
+                            <a href="/deletefield?field={{id}}&row={{row['name']}}" class="btnRow btn-danger" style="width: 60px">Delete</a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -60,8 +58,7 @@
                     {% for row in data %}
                     <tr class='tableColumn'>
                         <div style="display: flex;" id="temp">
-                            <td class="table-data table-name"><a href="/onlyJob?job={{row['name']}}">{{row['name']}}</a>
-                            </td>
+                            <td class="table-data table-name"><a href="/onlyJob?job={{row['name']}}">{{row['name']}}</a></td>
                         </div>
                         <td style="position: sticky; right:70px; z-index: 2;">
                             <button onclick="openForm('{{row['name']}}')" class="btnRow btn-secondary"
@@ -86,13 +83,17 @@
 {% macro jobCardDropdown(id, name, data) %}
 <div class="form-group col-md-4">
     <label for="{{id}}">{{name}}</label>
-    <div style="
+    <div
+        style="
             display: flex;
             justify-content: center;
             height: 35px;
             align-items: center;
         ">
-        <select name="{{id}}" id="{{id}}" style="width: 100%; ">
+        <select
+            name="{{id}}"
+            id="{{id}}"
+            style="width: 100%; ">
             <option></option>
             {% for row in data %}
             <option value="{{row['name']}}">
@@ -106,8 +107,13 @@
 
 {% macro jobCardField(id, name, type, len, req=0) %}
 <div class="form-group col-md-{{len}}">
-    <label for="{{id}}">{{name}}</label><input class="form-control" type="{{type}}" name="{{id}}" id="{{id}}" {% if req
-        %} required {% endif %} />
+    <label for="{{id}}">{{name}}</label
+    ><input
+        class="form-control"
+        type="{{type}}"
+        name="{{id}}"
+        id="{{id}}"
+        {% if req %} required {% endif %}/>
 </div>
 {% endmacro %}
 
@@ -115,7 +121,10 @@
 <td>
     <div class="filterBlocks">
         {{name}}
-        <select name="{{id}}" id="{{id}}" style="width: 100%">
+        <select
+            name="{{id}}"
+            id="{{id}}"
+            style="width: 100%">
             <option value="null"></option>
             {% for row in data %}
             <option value="{{row['name']}}">
