@@ -127,6 +127,14 @@
                             name="gsm" />
                     </div>
                     <div class="form-group col-md-2">
+                        <label for="paperLength">Length</label><input class="form-control"
+                            value="{{job['paperLength']}}" type="number" id="paperLength" name="paperLength" />
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="paperWidth">Width</label><input class="form-control" value="{{job['paperWidth']}}"
+                            type="number" id="paperWidth" name="paperWidth" />
+                    </div>
+                    <div class="form-group col-md-2">
                         <label for="paperSize">Size</label><input class="form-control" value="{{job['paperSize']}}"
                             type="text" id="paperSize" name="paperSize" />
                     </div>
@@ -134,10 +142,6 @@
                         <label for="paperQty">Qty</label>
                         <input class="form-control" value="{{job['paperQty']}}" type="number" id="paperQty"
                             name="paperQty" />
-                        <label for="weight">KG</label>
-                        <input type="checkbox" value="kg" name="weight" />
-                        <label for="value">Sheet</label>
-                        <input type="checkbox" value="value" name="value" />
                     </div>
                 </div>
             </div>

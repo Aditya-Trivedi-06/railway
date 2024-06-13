@@ -1,30 +1,23 @@
 {% extends 'layout.html' %}
-{% block title %} Create Job {% endblock title %} 
-{% block content %} 
+{% block title %} Create Job {% endblock title %}
+{% block content %}
 {% from 'macros.html' import jobCardDropdown %}
 {% from 'macros.html' import jobCardField %}
 
 <section style="padding: 20px;">
     <h2>Create a new Job Work</h2>
     <div style="margin: 25px">
-        <form
-            action="/createJobCard"
-            method="POST">
-            <div class="createJobDiv" >
+        <form action="/createJobCard" method="POST">
+            <div class="createJobDiv">
                 <h4>Job Card</h4>
                 <div class="form-row">
                     <div class="form-group col-md-2">
-                        <label for="JobId">Job Id</label
-                        ><input
-                            class="form-control"
-                            type="text"
-                            value="{{id}}"
-                            name="JobId"
-                            readonly />
+                        <label for="JobId">Job Id</label><input class="form-control" type="text" value="{{id}}"
+                            name="JobId" readonly />
                     </div>
                     {{ jobCardDropdown('clientName', 'Client Name', clientName) }}
                     {{ jobCardField('date', 'Date', 'date', req=1) }}
-                    
+
                 </div>
                 <div class="form-row">
                     {{ jobCardDropdown('jobName', 'Job Name', jobNames) }}
@@ -35,7 +28,7 @@
                 </div>
             </div>
 
-            <div class="createJobDiv" >
+            <div class="createJobDiv">
                 <h4>Paper</h4>
                 <div class="form-row">
                     {{ jobCardDropdown('paperSupplierName', 'Supplier Name', paperSuppliers) }}
@@ -43,9 +36,10 @@
                 </div>
                 <div class="form-row">
                     {{ jobCardField('gsm', 'GSM', 'text', 2) }}
-                    {{ jobCardField('paperLength', 'Length', 'text', 2) }}
-                    {{ jobCardField('paperWidth', 'Width', 'text', 2) }}
+                    {{ jobCardField('paperLength', 'Length', 'number', 2) }}
+                    {{ jobCardField('paperWidth', 'Width', 'number', 2) }}
                     {{ jobCardField('paperQty', 'Qty', 'number', 2) }}
+                    {{ jobCardField('paperSize', 'Size', 'text', 2) }}
                 </div>
             </div>
 
@@ -107,17 +101,10 @@
                     {{ jobCardField('pastingQty', 'Qty', 'number', 2) }}
                 </div>
             </div>
-            <button
-                type="submit"
-                class="btn btn-primary">
+            <button type="submit" class="btn btn-primary">
                 Save
             </button>
-            <a
-                role="button"
-                class="btn btn-primary"
-                href="{{url_for('dashboard')}}"
-                >Cancel</a
-            >
+            <a role="button" class="btn btn-primary" href="{{url_for('dashboard')}}">Cancel</a>
         </form>
     </div>
 </section>

@@ -1,40 +1,81 @@
 {% extends 'layout.html' %}
 {% block content %}
-    {% from 'macros.html' import jobTable %}
-    <div style="display: flex">
-        <div>
-            <button class="btn btn-secondary open-button" onclick="openJobForm('job_name_form')">Create</button>
-        </div>
-        <div id="job_name_form" class="job-form" style="z-index: 9; height: 170px; width: 50%; display: none;">
-            <div class="container">
-                <div class="align-items-center">
-                    <div style="display: flex; justify-content: center;">
-                        <h5>Add a Paper type</h5>
-                    </div>
-                    <div>
-                        <form method="POST" action="/addpaperType">
-                            <div class="row">
-                                <!-- Name -->
-                                <div class="input-group">
-                                    <input id="paperType" type="text" name="paperType" placeholder="Paper Type"
-                                        class="form-control border" required>
-                                </div>
+{% from 'macros.html' import jobTable %}
+<div style="display: flex">
+    <div>
+        <button class="btn btn-secondary open-button" onclick="openJobForm('job_name_form')">Create</button>
+    </div>
+    <div id="job_name_form" class="job-form" style="z-index: 9; height: 170px; width: 50%; display: none;">
+        <div class="container">
+            <div class="align-items-center">
+                <div style="display: flex; justify-content: center;">
+                    <h5>Add a Paper type</h5>
+                </div>
+                <div>
+                    <form method="POST" action="/addpaperType">
+                        <div class="row">
+                            <!-- Name -->
+                            <div class="input-group">
+                                <input id="paperType" type="text" name="paperType" placeholder="Paper Type"
+                                    class="form-control border" required>
                             </div>
-                            <!-- Submit Button -->
-                            <div class="row">
-                                <button class="btn btn-primary py-2 font-weight-bold" style="margin: 5px;">
-                                    Add
-                                </button>
-                                <button style="margin: 5px;" type="button" class="btn cancel btn-primary py-2"
-                                    onclick="closeForm('job_name_form')">Close</button>
+                            <div class="input-group">
+                                <input id="paperType" type="number" name="paperRate" placeholder="Paper Rate"
+                                    class="form-control border" required>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                        <!-- Submit Button -->
+                        <div class="row">
+                            <button class="btn btn-primary py-2 font-weight-bold" style="margin: 5px;">
+                                Add
+                            </button>
+                            <button style="margin: 5px;" type="button" class="btn cancel btn-primary py-2"
+                                onclick="closeForm('job_name_form')">Close</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    {{ jobTable('paperTypeName', 'Paper type', paperTypes) }}
+</div>
+{% from 'forms.html' import editFormShort%}
+<div style="margin: 20px">
+    <h4>Paper type</h4>
+    <div style="display: flex">
+        <div style="width: 100%; padding: 10px; margin-right: 20px">
+            <table class="table-striped table-bordered table-hover table-responsive" style="overflow-x: scroll;">
+                <tbody>
+                    <tr>
+                        <th>Name</th>
+                        <th>Rate</th>
+                    </tr>
+                    {% for row in paperTypes %}
+                    <tr class='tableColumn'>
+                        <div style="display: flex;" id="temp">
+                            <td class="table-data table-name">{{row['name']}}
+                            </td>
+                        </div>
+                        <td class="table-data table-name">{{row['rate']}}
+                        </td>
+                        <td style="position: sticky; right:70px; z-index: 2;">
+                            <button onclick="openForm('{{row['name']}}')" class="btnRow btn-secondary"
+                                style="width: 60px" id="myButton">
+                                Edit
+                            </button>
+                            {{ editFormShort(name, row['name'], id, row['name']) }}
+                        </td>
+                        <td style="position: sticky; right: 0px; z-index: 2;">
+                            <a href="/deletefield?field=paperTypeName&row={{row['name']}}" class="btnRow btn-danger"
+                                style="width: 60px">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
 {% endblock %}
 {% block javascripts %}
 <script>
