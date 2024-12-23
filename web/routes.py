@@ -51,7 +51,7 @@ def createJobCard():
         )
 
     if request.method == "POST":
-        data = extractData(request)
+        data = extractData(request)#print(data)
 
         try:
             addJobWork(data)

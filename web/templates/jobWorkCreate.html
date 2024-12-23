@@ -40,6 +40,7 @@
                     {{ jobCardField('paperWidth', 'Width', 'number', 2) }}
                     {{ jobCardField('paperQty', 'Qty', 'number', 2) }}
                     {{ jobCardField('paperSize', 'Size', 'text', 2) }}
+                    {{ jobCardField('paperCost', 'Cost', 'number', 2) }}
                 </div>
             </div>
 
@@ -52,6 +53,7 @@
                     {{ jobCardField('color', 'Color', 'text', 2) }}
                     {{ jobCardField('printSize', 'Size', 'text', 2) }}
                     {{ jobCardField('printQty', 'Qty', 'number', 2) }}
+                    {{ jobCardField('printCost', 'Cost', 'number', 2) }}
                 </div>
                 <div class="form-row">
                     {{ jobCardField('printingDescription', 'Printing Description', 'text', 6) }}
@@ -72,6 +74,7 @@
                 <div class="form-row">
                     {{ jobCardField('plySize', 'Size', 'text', 2) }}
                     {{ jobCardField('plyQty', 'Qty', 'number', 2) }}
+                    {{ jobCardField('plyCost', 'Cost', 'number', 2) }}
                 </div>
             </div>
             <div class="createJobDiv">
@@ -79,26 +82,32 @@
                 <div class="form-row">
                     {{ jobCardDropdown('plateSupplierName', 'Plate Supplier Name', plateSuppliers) }}
                     {{ jobCardField('plateQty', 'Qty', 'number', 2) }}
+                    {{ jobCardField('plateCost', 'Cost', 'number', 2) }}
                 </div>
                 <div class="form-row">
                     {{ jobCardDropdown('punchSupplierName', 'Punch Supplier Name', punchSuppliers) }}
                     {{ jobCardField('punchQty', 'Qty', 'number', 2) }}
+                    {{ jobCardField('punchCost', 'Cost', 'number', 2) }}
                 </div>
                 <div class="form-row">
                     {{ jobCardDropdown('varnishSupplierName', 'Varnish Supplier Name', varnishSuppliers) }}
                     {{ jobCardField('varnishQty', 'Qty', 'number', 2) }}
+                    {{ jobCardField('varnishCost', 'Cost', 'number', 2) }}
                 </div>
                 <div class="form-row">
                     {{ jobCardDropdown('laminationSupplierName', 'Lamination Supplier Name', laminationSuppliers) }}
                     {{ jobCardField('laminationQty', 'Qty', 'number', 2) }}
+                    {{ jobCardField('laminationCost', 'Cost', 'number', 2) }}
                 </div>
                 <div class="form-row">
                     {{ jobCardDropdown('punchingSupplierName', 'Punching Supplier Name', punchingSuppliers) }}
                     {{ jobCardField('punchingQty', 'Qty', 'number', 2) }}
+                    {{ jobCardField('punchingCost', 'Cost', 'number', 2) }}
                 </div>
                 <div class="form-row">
                     {{ jobCardDropdown('pastingSupplierName', 'Pasting Supplier Name', pastingSuppliers) }}
                     {{ jobCardField('pastingQty', 'Qty', 'number', 2) }}
+                    {{ jobCardField('pastingCost', 'Cost', 'number', 2) }}
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">

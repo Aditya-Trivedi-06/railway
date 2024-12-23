@@ -19,6 +19,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
     <script>
         function openForm(id) {
             console.log(id);
@@ -28,20 +32,22 @@
             document.getElementById(id).style.display = "none";
         }
         $(function () {
-                $('input, select').on('focus', function () {
-                    $(this).parent().find('.input-group-text').css('border-color', '#80bdff');
-                });
-                $('input, select').on('blur', function () {
-                    $(this).parent().find('.input-group-text').css('border-color', '#ced4da');
-                });
+            $('input, select').on('focus', function () {
+                $(this).parent().find('.input-group-text').css('border-color', '#80bdff');
             });
-        </script>
-    
+            $('input, select').on('blur', function () {
+                $(this).parent().find('.input-group-text').css('border-color', '#ced4da');
+            });
+        });
+    </script>
+
     <title>{% block title %} - My Site {% endblock %}</title>
 </head>
+
 <body>
     {% include 'navbar.html' %}
     {% block content %}{% endblock %}
     {% block javascripts %}{% endblock %}
 </body>
+
 </html>

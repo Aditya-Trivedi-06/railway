@@ -16,32 +16,26 @@
                     margin-top: 15px;
                 ">
             <div style="display: flex;">
-                <div style="margin-right: 30px;">
-                    <a href="{{url_for('dashboard')}}">
-                        <img src="https://static.vecteezy.com/system/resources/previews/004/220/756/original/home-silhouette-button-free-vector.jpg"
-                            style="width: 40px;">
-                    </a>
+                <div>
+                    <div style="margin-right: 10px;">
+                        <a href="/duplicateJob?jobid={{job['JobId']}}" class="btn btn-primary" role="button">
+                            Duplicate
+                        </a>
+                    </div>
                 </div>
                 <div>
-                    <a class="btn btn-dark" role="button" href="{{url_for('generateReport')}}">
-                        Reports
-                    </a>
+                    <div>
+                        <a href="/editJob?jobid={{job['JobId']}}" class="btn btn-primary" role="button">
+                            Edit
+                        </a>
+                    </div>
                 </div>
             </div>
             <div>
                 <h1>Job Card</h1>
             </div>
             <div style="display: flex; justify-content: space-around;">
-                <div style="margin-right: 10px;">
-                    <a href="/duplicateJob?jobid={{job['JobId']}}" class="btn btn-primary" role="button">
-                        Duplicate
-                    </a>
-                </div>
-                <div style="margin-right: 10px;">
-                    <a href="/editJob?jobid={{job['JobId']}}" class="btn btn-primary" role="button">
-                        Edit
-                    </a>
-                </div>
+
                 <div style="margin-right: 10px;">
                     <button class="btn btn-danger" role="button" id="myButton">
                         Delete
@@ -71,10 +65,11 @@
             </div>
         </div>
         <div style="width: 100%; padding: 20px;">
-            <table style="width: 100%;" class="table table-bordered" id="printTable">
+            <table style="width: 100%; border: 2px darkgrey solid !important;" class="table table-bordered"
+                id="printTable">
                 <tbody>
                     <tr>
-                        <td colspan="2">
+                        <td colspan="3">
                             <h4>Job Details</h4>
                         </td>
                     </tr>
@@ -85,12 +80,13 @@
                                 <div class="tableContent">{{ job['clientName'] }}</div>
                             </div>
                         </td>
-                        <td>
+                        <td style="border-right: 0;">
                             <div style="display: flex">
                                 <div class="tableNames">Date</div>
                                 <div class="tableContent">{{ job['date'] }}</div>
                             </div>
                         </td>
+                        <td style="border-left: 0;"></td>
                     </tr>
                     <tr>
                         <td class="leftRow">
@@ -99,12 +95,13 @@
                                 <div class="tableContent"><b>{{ job['jobName'] }}</b></div>
                             </div>
                         </td>
-                        <td>
+                        <td style="border-right: 0;">
                             <div style="display: flex">
                                 <div class="tableNames">Qty</div>
                                 <div class="tableContent">{{ job['qty'] }}</div>
                             </div>
                         </td>
+                        <td style="border-left: 0;"></td>
                     </tr>
                     <tr>
                         <td class="leftRow">
@@ -116,9 +113,17 @@
                             </div>
                         </td>
                         <td></td>
+                        <td>
+                            <div style="display: flex">
+                                <div class="tableNames">
+                                    Cost
+                                </div>
+                                <div class="tableContent">{{ job['jobCost'] }}</div>
+                            </div>
+                        </td>
                     </tr>
-                    <tr>
-                        <td colspan="2">
+                    <tr style="border-top: 2px gray solid !important;">
+                        <td colspan="3">
                             <h4>Paper Details</h4>
                         </td>
                     </tr>
@@ -129,12 +134,13 @@
                                 <div class="tableContent"><b>{{ job['paperSupplierName'] }}</b></div>
                             </div>
                         </td>
-                        <td>
+                        <td style="border-right: 0;">
                             <div style="display: flex">
                                 <div class="tableNames">Gsm</div>
                                 <div class="tableContent">{{ job['gsm'] }}</div>
                             </div>
                         </td>
+                        <td style="border-left: 0;"></td>
                     </tr>
                     <tr>
                         <td class="leftRow">
@@ -143,16 +149,17 @@
                                 <div class="tableContent">{{ job['paperType'] }}</div>
                             </div>
                         </td>
-                        <td>
+                        <td style="border-right: 0;">
                             <div style="display: flex">
                                 <div class="tableNames">Paper Qty</div>
                                 <div class="tableContent">{{ job['paperQty'] }}</div>
                             </div>
                         </td>
+                        <td style="border-left: 0;"></td>
                     </tr>
                     <tr>
-                        <td>
-                            <table style="width: 100%;">
+                        <td style="padding: 0 !important;">
+                            <table style="width: 100%;;">
                                 <tbody>
                                     <tr>
                                         <td>
@@ -177,9 +184,15 @@
                                 <div class="tableContent">{{ job['paperSize'] }}</div>
                             </div>
                         </td>
+                        <td>
+                            <div style="display: flex">
+                                <div class="tableNames">Cost</div>
+                                <div class="tableContent">{{ job['paperCost'] }}</div>
+                            </div>
+                        </td>
                     </tr>
-                    <tr>
-                        <td colspan="2">
+                    <tr style="border-top: 2px gray solid !important;">
+                        <td colspan="3">
                             <h4>Printing Details</h4>
                         </td>
                     </tr>
@@ -190,12 +203,13 @@
                                 <div class="tableContent"><b>{{ job['printingSupplierName'] }}</b></div>
                             </div>
                         </td>
-                        <td>
+                        <td style="border-right: 0;">
                             <div style="display: flex">
                                 <div class="tableNames">Color</div>
                                 <div class="tableContent">{{ job['color'] }}</div>
                             </div>
                         </td>
+                        <td style="border-left: 0;"></td>
                     </tr>
                     <tr>
                         <td class="leftRow">
@@ -204,12 +218,13 @@
                                 <div class="tableContent">{{ job['printingDescription'] }}</div>
                             </div>
                         </td>
-                        <td>
+                        <td style="border-right: 0;">
                             <div style="display: flex">
                                 <div class="tableNames">Print Size</div>
                                 <div class="tableContent">{{ job['printSize'] }}</div>
                             </div>
                         </td>
+                        <td style="border-left: 0;"></td>
                     </tr>
                     <tr>
                         <td>
@@ -221,9 +236,15 @@
                                 <div class="tableContent">{{ job['printQty'] }}</div>
                             </div>
                         </td>
+                        <td>
+                            <div style="display: flex">
+                                <div class="tableNames">Cost</div>
+                                <div class="tableContent">{{ job['printCost'] }}</div>
+                            </div>
+                        </td>
                     </tr>
-                    <tr>
-                        <td colspan="2">
+                    <tr style="border-top: 2px gray solid !important;">
+                        <td colspan="3">
                             <h4>
                                 Corrugation Details
                             </h4>
@@ -236,12 +257,13 @@
                                 <div class="tableContent">{{ job['corrugationSupplierName'] }}</div>
                             </div>
                         </td>
-                        <td>
+                        <td style="border-right: 0;">
                             <div style="display: flex">
                                 <div class="tableNames">Ply</div>
                                 <div class="tableContent">{{ job['ply'] }}</div>
                             </div>
                         </td>
+                        <td style="border-left: 0;"></td>
                     </tr>
                     <tr>
                         <td class="leftRow">
@@ -250,12 +272,13 @@
                                 <div class="tableContent">{{ job['plyDescription'] }}</div>
                             </div>
                         </td>
-                        <td>
+                        <td style="border-right: 0;">
                             <div style="display: flex">
                                 <div class="tableNames">Ply Size</div>
                                 <div class="tableContent">{{ job['plySize'] }}</div>
                             </div>
                         </td>
+                        <td style="border-left: 0;"></td>
                     </tr>
                     <tr>
                         <td>
@@ -266,9 +289,15 @@
                                 <div class="tableContent">{{ job['plyQty'] }}</div>
                             </div>
                         </td>
+                        <td>
+                            <div style="display: flex">
+                                <div class="tableNames">Cost</div>
+                                <div class="tableContent">{{ job['plyCost'] }}</div>
+                            </div>
+                        </td>
                     </tr>
-                    <tr>
-                        <td colspan="2">
+                    <tr style="border-top: 2px gray solid !important;">
+                        <td colspan="3">
                             <h4>
                                 Other Details
                             </h4>
@@ -287,6 +316,12 @@
                                 <div class="tableContent">{{ job['plateQty'] }}</div>
                             </div>
                         </td>
+                        <td>
+                            <div style="display: flex">
+                                <div class="tableNames">Cost</div>
+                                <div class="tableContent">{{ job['plateCost'] }}</div>
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <td class="leftRow">
@@ -299,6 +334,12 @@
                             <div style="display: flex">
                                 <div class="tableNames">Qty</div>
                                 <div class="tableContent">{{ job['punchQty'] }}</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="display: flex">
+                                <div class="tableNames">Cost</div>
+                                <div class="tableContent">{{ job['punchCost'] }}</div>
                             </div>
                         </td>
                     </tr>
@@ -315,6 +356,12 @@
                                 <div class="tableContent">{{ job['varnishQty'] }}</div>
                             </div>
                         </td>
+                        <td>
+                            <div style="display: flex">
+                                <div class="tableNames">Cost</div>
+                                <div class="tableContent">{{ job['varnishCost'] }}</div>
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <td class="leftRow">
@@ -327,6 +374,12 @@
                             <div style="display: flex">
                                 <div class="tableNames">Qty</div>
                                 <div class="tableContent">{{ job['laminationQty'] }}</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="display: flex">
+                                <div class="tableNames">Cost</div>
+                                <div class="tableContent">{{ job['laminationCost'] }}</div>
                             </div>
                         </td>
                     </tr>
@@ -343,6 +396,12 @@
                                 <div class="tableContent">{{ job['punchingQty'] }}</div>
                             </div>
                         </td>
+                        <td>
+                            <div style="display: flex">
+                                <div class="tableNames">Cost</div>
+                                <div class="tableContent">{{ job['punchingCost'] }}</div>
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <td class="leftRow">
@@ -355,6 +414,12 @@
                             <div style="display: flex">
                                 <div class="tableNames">Qty</div>
                                 <div class="tableContent">{{ job['pastingQty'] }}</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="display: flex">
+                                <div class="tableNames">Cost</div>
+                                <div class="tableContent">{{ job['pastingCost'] }}</div>
                             </div>
                         </td>
                     </tr>
